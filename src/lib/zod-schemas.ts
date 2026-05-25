@@ -24,3 +24,13 @@ export const enrollStudentSchema = z.object({
   studentId: z.string().min(1, "Student ID is required"),
   name: z.string().min(1, "Student name is required"),
 });
+
+export const createSessionSchema = z.object({
+  courseId: z.string().uuid("Invalid course ID"),
+});
+
+export const submitAttendanceSchema = z.object({
+  sessionToken: z.string().min(1, "Session token is required"),
+  studentId: z.string().min(1, "Student ID is required"),
+  name: z.string().min(1, "Student name is required"),
+});
