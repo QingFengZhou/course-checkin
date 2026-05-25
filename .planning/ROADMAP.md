@@ -56,7 +56,7 @@ Plans:
 **Plans**: TBD
 
 Plans:
-- [ ] 03-01: Check-in session model and service (create, activate, end, timeout)
+- [x] 03-01: Check-in session model and service (create, activate, end, timeout)
 - [ ] 03-02: QR token generation and check-in submission API (with idempotency)
 - [ ] 03-03: Teacher-side check-in page (session start, QR display with qrcode.react, manual sign-in)
 - [ ] 03-04: Student-side check-in form (QR landing page, ID + name input, submission confirmation)
@@ -104,6 +104,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 |-------|----------------|--------|-----------|
 | 1. Foundation + Auth | 4/4 | Complete   | 2026-05-26 |
 | 2. Course + Student Management | 3/3 | Complete   | 2026-05-25 |
-| 3. Check-In System | 0/4 | Not started | - |
+| 3. Check-In System | 1/4 | In Progress|  |
 | 4. Real-Time Dashboard | 0/4 | Not started | - |
 | 5. History & Reporting | 0/3 | Not started | - |

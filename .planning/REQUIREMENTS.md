@@ -23,10 +23,10 @@
 
 ### Check-In Flow
 
-- [ ] **CHECKIN-01**: 老师可以发起签到（选择课程，生成二维码）
-- [ ] **CHECKIN-02**: 学生扫码后输入学号/姓名完成签到
-- [ ] **CHECKIN-03**: 老师可以手动帮学生签到
-- [ ] **CHECKIN-04**: 签到会话有超时自动结束
+- [x] **CHECKIN-01**: 老师可以发起签到（选择课程，生成二维码）
+- [x] **CHECKIN-02**: 学生扫码后输入学号/姓名完成签到
+- [x] **CHECKIN-03**: 老师可以手动帮学生签到
+- [x] **CHECKIN-04**: 签到会话有超时自动结束
 
 ### Real-Time Dashboard
 
@@ -77,10 +77,10 @@
 | COURSE-03 | Phase 2 | Complete |
 | STUDENT-01 | Phase 2 | Complete |
 | STUDENT-02 | Phase 2 | Complete |
-| CHECKIN-01 | Phase 3 | Pending |
-| CHECKIN-02 | Phase 3 | Pending |
-| CHECKIN-03 | Phase 3 | Pending |
-| CHECKIN-04 | Phase 3 | Pending |
+| CHECKIN-01 | Phase 3 | Complete |
+| CHECKIN-02 | Phase 3 | Complete |
+| CHECKIN-03 | Phase 3 | Complete |
+| CHECKIN-04 | Phase 3 | Complete |
 | DASH-01 | Phase 4 | Pending |
 | DASH-02 | Phase 4 | Pending |
 | DASH-03 | Phase 4 | Pending |

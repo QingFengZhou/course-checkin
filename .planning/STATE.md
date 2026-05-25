@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: verifying
-last_updated: "2026-05-25T17:05:33.540Z"
-last_activity: 2026-05-25
+status: executing
+last_updated: "2026-05-25T17:49:35.961Z"
+last_activity: 2026-05-26
 progress:
   total_phases: 5
   completed_phases: 2
-  total_plans: 4
-  completed_plans: 7
+  total_plans: 8
+  completed_plans: 8
   percent: 40
 ---
 
@@ -24,12 +24,18 @@ See: .planning/PROJECT.md (updated 2026-05-25)
 
 ## Current Position
 
-Phase: 1 of 5 (Foundation + Auth)
-Plan: 4 of 4 in current phase (COMPLETE)
-Status: Phase complete — ready for verification
-Last activity: 2026-05-25
+Phase: 3 of 5 (Check-In System)
+Plan: Executing — Wave 1 of 3 (03-01: Schema + Service)
+Status: In progress — 4 plans pending across 3 waves
+Last activity: 2026-05-26
 
 Progress: [██████████] 100%
+
+### Wave Plan
+
+- **Wave 1** (active): 03-01 (schema + service layer)
+- **Wave 2** (pending): 03-02 (API routes) + 03-03 (teacher UI) — parallel
+- **Wave 3** (pending): 03-04 (student UI)
 
 ## Performance Metrics
 
@@ -53,6 +59,7 @@ Progress: [██████████] 100%
 | Phase 01-foundation-auth P01-04 | 2 | 2 tasks | 3 files |
 | Phase 02-course-student-mgmt P02 | ~15min | 3 tasks | 4 files |
 | Phase 02-course-student-mgmt P03 | ~15min | 2 tasks | 4 files |
+| Phase 03-check-in-system P01 | 20 | 3 tasks | 9 files |
 
 ## Accumulated Context
 
@@ -66,6 +73,9 @@ Recent decisions affecting current work:
 - **D-03:** 开发环境 Docker PostgreSQL 17
 - **D-05:** v1 最小登录页，无 remember-me
 - [Phase ?]: Used drizzle-orm/postgres-js instead of node-postgres to match existing package.json postgres dependency
+- [Phase ?]: .planning/phases/03-check-in-system/03-01-SUMMARY.md
+- [Phase ?]: .planning/phases/03-check-in-system/03-01-SUMMARY.md
+- [Phase ?]: .planning/phases/03-check-in-system/03-01-SUMMARY.md
 
 ### Pending Todos
 
@@ -88,6 +98,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-25T17:05:33.503Z
+Last session: 2026-05-25T17:49:30.858Z
 Stopped at: context exhaustion at 75% (2026-05-25)
 Resume file: None
