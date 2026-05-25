@@ -42,7 +42,10 @@ export default function CourseCard({ course, onDelete, onManageStudents }: Cours
         return;
       }
 
-      router.push(`/checkin/${course.id}`);
+      const json = await res.json();
+      router.push(
+        `/checkin/${course.id}?session=${json.data.token}&sessionId=${json.data.sessionId}&expiresAt=${encodeURIComponent(json.data.expiresAt)}`,
+      );
     } catch {
       setCheckinError("网络错误，请重试");
     } finally {

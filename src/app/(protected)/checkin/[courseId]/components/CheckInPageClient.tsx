@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { QRCodeSVG } from "qrcode.react";
 
@@ -25,6 +25,7 @@ interface CheckInPageClientProps {
 
 export default function CheckInPageClient({ course }: CheckInPageClientProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [session, setSession] = useState<SessionInfo | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -32,6 +33,7 @@ export default function CheckInPageClient({ course }: CheckInPageClientProps) {
   const [checkedInCount, setCheckedInCount] = useState(0);
   const [totalStudents, setTotalStudents] = useState(0);
   const [sessionEnded, setSessionEnded] = useState(false);
+  const [initialized, setInitialized] = useState(false);
 
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -165,6 +167,29 @@ export default function CheckInPageClient({ course }: CheckInPageClientProps) {
       setError("网络错误，请重试");
     }
   };
+
+  // Initialize from URL search params (pre-created session from course card)
+  useEffect(() => {
+    if (initialized) return;
+
+    const token = searchParams.get("session");
+    const sid = searchParams.get("sessionId");
+    const expires = searchParams.get("expiresAt");
+
+    if (token && sid && expires) {
+      const sessionInfo: SessionInfo = {
+        id: sid,
+        token,
+        status: "active",
+        expiresAt: decodeURIComponent(expires),
+        closedAt: null,
+      };
+      setSession(sessionInfo);
+      startCountdown(sessionInfo);
+    }
+
+    setInitialized(true);
+  }, [searchParams, initialized, startCountdown]);
 
   // Cleanup on unmount
   useEffect(() => {
