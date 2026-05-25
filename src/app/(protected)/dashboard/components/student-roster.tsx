@@ -13,15 +13,18 @@ interface StudentRosterProps {
   courseId: string;
   courseName: string;
   onClose: () => void;
+  activeSessionId?: string;
 }
 
-export default function StudentRoster({ courseId, courseName, onClose }: StudentRosterProps) {
+export default function StudentRoster({ courseId, courseName, onClose, activeSessionId }: StudentRosterProps) {
   const [students, setStudents] = useState<Student[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [studentId, setStudentId] = useState("");
   const [name, setName] = useState("");
   const [adding, setAdding] = useState(false);
+  const [checkedInIds, setCheckedInIds] = useState<Set<string>>(new Set());
+  const [checkingInId, setCheckingInId] = useState<string | null>(null);
 
   const fetchStudents = useCallback(async () => {
     setLoading(true);
@@ -42,6 +45,11 @@ export default function StudentRoster({ courseId, courseName, onClose }: Student
   useEffect(() => {
     fetchStudents();
   }, [fetchStudents]);
+
+  // Reset checked-in state when activeSessionId changes
+  useEffect(() => {
+    setCheckedInIds(new Set());
+  }, [activeSessionId]);
 
   const handleAdd = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -85,6 +93,34 @@ export default function StudentRoster({ courseId, courseName, onClose }: Student
       fetchStudents();
     } catch {
       setError("移除学生失败");
+    }
+  };
+
+  const handleManualCheckIn = async (studentDbId: string) => {
+    if (!activeSessionId) return;
+
+    setCheckingInId(studentDbId);
+    setError("");
+
+    try {
+      const res = await fetch(`/api/sessions/${activeSessionId}/manual-checkin`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ studentId: studentDbId }),
+        credentials: "include",
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        setError(data.error ?? "签到失败");
+        return;
+      }
+
+      setCheckedInIds((prev) => new Set(prev).add(studentDbId));
+    } catch {
+      setError("网络错误，请重试");
+    } finally {
+      setCheckingInId(null);
     }
   };
 
@@ -146,24 +182,49 @@ export default function StudentRoster({ courseId, courseName, onClose }: Student
               <tr className="border-b border-gray-200">
                 <th className="text-left py-2 text-gray-600 font-medium">学号</th>
                 <th className="text-left py-2 text-gray-600 font-medium">姓名</th>
+                {activeSessionId && (
+                  <th className="text-center py-2 text-gray-600 font-medium">签到</th>
+                )}
                 <th className="text-right py-2 text-gray-600 font-medium">操作</th>
               </tr>
             </thead>
             <tbody>
-              {students.map((s) => (
-                <tr key={s.id} className="border-b border-gray-100">
-                  <td className="py-2">{s.studentId}</td>
-                  <td className="py-2">{s.name}</td>
-                  <td className="py-2 text-right">
-                    <button
-                      onClick={() => handleRemove(s.id)}
-                      className="text-red-500 hover:text-red-700 text-sm font-medium"
-                    >
-                      移除
-                    </button>
-                  </td>
-                </tr>
-              ))}
+              {students.map((s) => {
+                const isCheckedIn = checkedInIds.has(s.id);
+                const isCheckingIn = checkingInId === s.id;
+
+                return (
+                  <tr key={s.id} className="border-b border-gray-100">
+                    <td className="py-2">{s.studentId}</td>
+                    <td className="py-2">{s.name}</td>
+                    {activeSessionId && (
+                      <td className="py-2 text-center">
+                        {isCheckedIn ? (
+                          <span className="text-green-500 text-sm font-medium">
+                            &#10003; 已签到
+                          </span>
+                        ) : (
+                          <button
+                            onClick={() => handleManualCheckIn(s.id)}
+                            disabled={isCheckingIn}
+                            className="border border-blue-500 text-blue-500 px-3 py-1 rounded-md hover:bg-blue-50 disabled:opacity-50 disabled:cursor-not-allowed text-xs font-medium"
+                          >
+                            {isCheckingIn ? "签到中..." : "签到"}
+                          </button>
+                        )}
+                      </td>
+                    )}
+                    <td className="py-2 text-right">
+                      <button
+                        onClick={() => handleRemove(s.id)}
+                        className="text-red-500 hover:text-red-700 text-sm font-medium"
+                      >
+                        移除
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         )}
