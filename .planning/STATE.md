@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-05-25T17:49:35.961Z"
+last_updated: "2026-05-25T17:53:51.758Z"
 last_activity: 2026-05-26
 progress:
   total_phases: 5
   completed_phases: 2
   total_plans: 8
-  completed_plans: 8
+  completed_plans: 9
   percent: 40
 ---
 
@@ -25,16 +25,16 @@ See: .planning/PROJECT.md (updated 2026-05-25)
 ## Current Position
 
 Phase: 3 of 5 (Check-In System)
-Plan: Executing — Wave 1 of 3 (03-01: Schema + Service)
-Status: In progress — 4 plans pending across 3 waves
+Plan: Executing — Wave 2 of 3 (03-02: API Routes)
+Status: In progress — 2 plans pending across 2 waves
 Last activity: 2026-05-26
 
 Progress: [██████████] 100%
 
 ### Wave Plan
 
-- **Wave 1** (active): 03-01 (schema + service layer)
-- **Wave 2** (pending): 03-02 (API routes) + 03-03 (teacher UI) — parallel
+- **Wave 1** (complete): 03-01 (schema + service layer)
+- **Wave 2** (active): 03-02 (API routes) + 03-03 (teacher UI) — parallel
 - **Wave 3** (pending): 03-04 (student UI)
 
 ## Performance Metrics
@@ -60,6 +60,7 @@ Progress: [██████████] 100%
 | Phase 02-course-student-mgmt P02 | ~15min | 3 tasks | 4 files |
 | Phase 02-course-student-mgmt P03 | ~15min | 2 tasks | 4 files |
 | Phase 03-check-in-system P01 | 20 | 3 tasks | 9 files |
+| Phase 03-check-in-system P02 | 2min | 3 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -68,6 +69,8 @@ Progress: [██████████] 100%
 Decisions are logged in PROJECT.md Key Decisions table.
 Recent decisions affecting current work:
 
+- **Phase 03-02:** Chinese error messages for student/teacher UX across all check-in API routes
+- **Phase 03-02:** Idempotent check-in: duplicate POST /api/checkin/submit returns 200 with alreadyCheckedIn flag (not 400/500 error)
 - **D-01:** 首次自注册模式（/setup 页面，创建首个账号后关闭）
 - **D-02:** bcrypt（bcryptjs）密码哈希，cost factor 10
 - **D-03:** 开发环境 Docker PostgreSQL 17
@@ -98,6 +101,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-25T17:49:30.858Z
+Last session: 2026-05-25T17:53:51.747Z
 Stopped at: context exhaustion at 75% (2026-05-25)
 Resume file: None
