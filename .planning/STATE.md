@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-05-25T17:53:51.758Z"
+last_updated: "2026-05-25T17:58:29.061Z"
 last_activity: 2026-05-26
 progress:
   total_phases: 5
   completed_phases: 2
   total_plans: 8
-  completed_plans: 9
+  completed_plans: 10
   percent: 40
 ---
 
@@ -25,8 +25,8 @@ See: .planning/PROJECT.md (updated 2026-05-25)
 ## Current Position
 
 Phase: 3 of 5 (Check-In System)
-Plan: Executing — Wave 2 of 3 (03-02: API Routes)
-Status: In progress — 2 plans pending across 2 waves
+Plan: 3 of 4 — Wave 2 of 3 (03-03: Teacher UI) complete
+Status: In progress — 1 plan pending (03-04: Student UI)
 Last activity: 2026-05-26
 
 Progress: [██████████] 100%
@@ -34,8 +34,8 @@ Progress: [██████████] 100%
 ### Wave Plan
 
 - **Wave 1** (complete): 03-01 (schema + service layer)
-- **Wave 2** (active): 03-02 (API routes) + 03-03 (teacher UI) — parallel
-- **Wave 3** (pending): 03-04 (student UI)
+- **Wave 2** (complete): 03-02 (API routes) + 03-03 (teacher UI) — parallel
+- **Wave 3** (active): 03-04 (student UI)
 
 ## Performance Metrics
 
@@ -61,6 +61,7 @@ Progress: [██████████] 100%
 | Phase 02-course-student-mgmt P03 | ~15min | 2 tasks | 4 files |
 | Phase 03-check-in-system P01 | 20 | 3 tasks | 9 files |
 | Phase 03-check-in-system P02 | 2min | 3 tasks | 4 files |
+| Phase 03-check-in-system P03 | ~6min | 3 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -71,6 +72,9 @@ Recent decisions affecting current work:
 
 - **Phase 03-02:** Chinese error messages for student/teacher UX across all check-in API routes
 - **Phase 03-02:** Idempotent check-in: duplicate POST /api/checkin/submit returns 200 with alreadyCheckedIn flag (not 400/500 error)
+- **Phase 03-03:** Self-auth pattern for teacher check-in page: Server Component calls cookies() + verifyToken() directly (middleware doesn't cover /checkin route)
+- **Phase 03-03:** Attendance count endpoint GET /api/sessions/[sessionId] created for polling (identified as missing in RESEARCH.md)
+- **Phase 03-03:** Session token passed via URL search params from course card to check-in page — avoids duplicate session creation
 - **D-01:** 首次自注册模式（/setup 页面，创建首个账号后关闭）
 - **D-02:** bcrypt（bcryptjs）密码哈希，cost factor 10
 - **D-03:** 开发环境 Docker PostgreSQL 17
