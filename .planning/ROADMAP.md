@@ -37,14 +37,12 @@ Plans:
   2. Teacher sees a list of their courses on the dashboard
   3. Teacher can delete a course and confirm it is removed from the list
   4. Teacher can add a student (student ID + name) to a course and see them in the roster
-**Plans**: TBD
+**Plans**: 3 plans (3 waves)
 
 Plans:
-- [ ] 02-01: Course model and API (create, list, delete with teacher ownership)
-- [ ] 02-02: Course management UI (course list page, create form, delete confirmation)
-- [ ] 02-03: Student roster model and API (enroll, remove, list students per course)
-- [ ] 02-04: Student management UI (add student form, roster view, remove action)
-**UI hint**: yes
+- [x] 02-01-PLAN.md — Course + student schema, types, Zod validation (Wave 1)
+- [ ] 02-02-PLAN.md — Course + student REST APIs with ownership enforcement (Wave 2)
+- [ ] 02-03-PLAN.md — Dashboard UI: course card grid, create/delete, student roster (Wave 3)
 
 ### Phase 3: Check-In System
 **Goal**: Teachers can initiate check-in sessions and students can complete check-in via QR code
@@ -100,12 +98,12 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
+Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation + Auth | 4/4 | Complete   | 2026-05-26 |
-| 2. Course + Student Management | 0/4 | Not started | - |
+| 2. Course + Student Management | 1/3 | In Progress|  |
 | 3. Check-In System | 0/4 | Not started | - |
 | 4. Real-Time Dashboard | 0/4 | Not started | - |
 | 5. History & Reporting | 0/3 | Not started | - |

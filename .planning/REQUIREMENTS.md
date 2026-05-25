@@ -12,14 +12,14 @@
 
 ### Course Management
 
-- [ ] **COURSE-01**: 老师可以创建课程（课程名、学期）
-- [ ] **COURSE-02**: 老师可以删除课程
-- [ ] **COURSE-03**: 老师可以查看课程列表
+- [x] **COURSE-01**: 老师可以创建课程（课程名、学期）
+- [x] **COURSE-02**: 老师可以删除课程
+- [x] **COURSE-03**: 老师可以查看课程列表
 
 ### Student Management
 
-- [ ] **STUDENT-01**: 老师可以手动添加学生到课程（学号、姓名）
-- [ ] **STUDENT-02**: 老师可以从课程中移除学生
+- [x] **STUDENT-01**: 老师可以手动添加学生到课程（学号、姓名）
+- [x] **STUDENT-02**: 老师可以从课程中移除学生
 
 ### Check-In Flow
 
@@ -72,11 +72,11 @@
 |-------------|-------|--------|
 | AUTH-01 | Phase 1 | Complete |
 | AUTH-02 | Phase 1 | Complete |
-| COURSE-01 | Phase 2 | Pending |
-| COURSE-02 | Phase 2 | Pending |
-| COURSE-03 | Phase 2 | Pending |
-| STUDENT-01 | Phase 2 | Pending |
-| STUDENT-02 | Phase 2 | Pending |
+| COURSE-01 | Phase 2 | Complete |
+| COURSE-02 | Phase 2 | Complete |
+| COURSE-03 | Phase 2 | Complete |
+| STUDENT-01 | Phase 2 | Complete |
+| STUDENT-02 | Phase 2 | Complete |
 | CHECKIN-01 | Phase 3 | Pending |
 | CHECKIN-02 | Phase 3 | Pending |
 | CHECKIN-03 | Phase 3 | Pending |
