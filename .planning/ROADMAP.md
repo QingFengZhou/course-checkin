@@ -6,7 +6,7 @@ Build a lightweight real-time course attendance check-in system that handles 100
 
 ## Phases
 
-- [x] **Phase 1: Foundation + Auth** - PostgreSQL schema, Drizzle ORM, teacher login with JWT + HTTP-only cookies, base layout (completed 2026-05-25)
+- [x] **Phase 1: Foundation + Auth** - PostgreSQL schema, Drizzle ORM, teacher login with JWT + HTTP-only cookies, base layout (completed 2026-05-26)
 - [ ] **Phase 2: Course + Student Management** - Course CRUD, student roster management, enrollment API
 - [ ] **Phase 3: Check-In System** - QR code generation, student check-in submission, session lifecycle, manual sign-in
 - [ ] **Phase 4: Real-Time Dashboard** - WebSocket server, room-based broadcasting, live attendance rate and student lists
@@ -26,7 +26,7 @@ Build a lightweight real-time course attendance check-in system that handles 100
 
 
 Plans:
-- [ ] 01-PLAN.md -- Project scaffolding + database schema + auth service + login UI (4 sub-plans, 1 wave)
+- [x] 01-PLAN.md -- Project scaffolding + database schema + auth service + login UI (4 sub-plans, 1 wave)
 
 ### Phase 2: Course + Student Management
 **Goal**: Teachers can create courses and manage student rosters
@@ -104,7 +104,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation + Auth | 3/1 | Complete   | 2026-05-25 |
+| 1. Foundation + Auth | 4/4 | Complete   | 2026-05-26 |
 | 2. Course + Student Management | 0/4 | Not started | - |
 | 3. Check-In System | 0/4 | Not started | - |
 | 4. Real-Time Dashboard | 0/4 | Not started | - |
