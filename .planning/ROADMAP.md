@@ -41,7 +41,7 @@ Plans:
 
 Plans:
 - [x] 02-01-PLAN.md — Course + student schema, types, Zod validation (Wave 1)
-- [ ] 02-02-PLAN.md — Course + student REST APIs with ownership enforcement (Wave 2)
+- [x] 02-02-PLAN.md — Course + student REST APIs with ownership enforcement (Wave 2)
 - [ ] 02-03-PLAN.md — Dashboard UI: course card grid, create/delete, student roster (Wave 3)
 
 ### Phase 3: Check-In System
@@ -103,7 +103,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation + Auth | 4/4 | Complete   | 2026-05-26 |
-| 2. Course + Student Management | 1/3 | In Progress|  |
+| 2. Course + Student Management | 2/3 | In Progress|  |
 | 3. Check-In System | 0/4 | Not started | - |
 | 4. Real-Time Dashboard | 0/4 | Not started | - |
 | 5. History & Reporting | 0/3 | Not started | - |
