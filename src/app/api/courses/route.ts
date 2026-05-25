@@ -7,7 +7,7 @@ import { createCourseSchema } from "@/lib/zod-schemas";
 
 export async function GET(request: NextRequest) {
   const session = await getAuthSession(request);
-  if (!session.isAuthenticated) {
+  if (!session.isAuthenticated || !session.user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -31,7 +31,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   const session = await getAuthSession(request);
-  if (!session.isAuthenticated) {
+  if (!session.isAuthenticated || !session.user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const parsed = createCourseSchema.safeParse(body);
     if (!parsed.success) {
-      return NextResponse.json({ error: parsed.error.errors[0].message }, { status: 400 });
+      return NextResponse.json({ error: parsed.error.issues[0].message }, { status: 400 });
     }
 
     const [course] = await db
