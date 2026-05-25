@@ -1,0 +1,21 @@
+# docker compose up    # starts PostgreSQL 17 locally
+version: "3.8"
+services:
+  postgres:
+    image: postgres:17
+    container_name: coursecheckin-db
+    environment:
+      POSTGRES_DB: coursecheckin
+      POSTGRES_USER: coursecheckin
+      POSTGRES_PASSWORD: coursecheckin
+    ports:
+      - "5432:5432"
+    volumes:
+      - docker-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U coursecheckin"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+volumes:
+  docker-data:
