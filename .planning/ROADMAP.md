@@ -6,7 +6,7 @@ Build a lightweight real-time course attendance check-in system that handles 100
 
 ## Phases
 
-- [ ] **Phase 1: Foundation + Auth** - PostgreSQL schema, Drizzle ORM, teacher login with JWT + HTTP-only cookies, base layout
+- [x] **Phase 1: Foundation + Auth** - PostgreSQL schema, Drizzle ORM, teacher login with JWT + HTTP-only cookies, base layout (completed 2026-05-25)
 - [ ] **Phase 2: Course + Student Management** - Course CRUD, student roster management, enrollment API
 - [ ] **Phase 3: Check-In System** - QR code generation, student check-in submission, session lifecycle, manual sign-in
 - [ ] **Phase 4: Real-Time Dashboard** - WebSocket server, room-based broadcasting, live attendance rate and student lists
@@ -22,13 +22,11 @@ Build a lightweight real-time course attendance check-in system that handles 100
   1. Teacher can log in with email/username and password
   2. Teacher stays logged in when navigating between pages (session persists)
   3. Teacher is redirected to login when accessing protected pages while not authenticated
-**Plans**: TBD
+**Plans**: 1 plan (4 sub-plans, 1 wave)
+
 
 Plans:
-- [ ] 01-01: Project scaffolding (Next.js 16, PostgreSQL 17, Drizzle ORM, deployment target)
-- [ ] 01-02: Database schema and migrations (users table with password hash, indexes)
-- [ ] 01-03: Auth service (JWT + HTTP-only cookie, login/logout API, session validation middleware)
-- [ ] 01-04: Base layout with auth guard and login page UI
+- [ ] 01-PLAN.md -- Project scaffolding + database schema + auth service + login UI (4 sub-plans, 1 wave)
 
 ### Phase 2: Course + Student Management
 **Goal**: Teachers can create courses and manage student rosters
@@ -106,7 +104,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation + Auth | 0/4 | Not started | - |
+| 1. Foundation + Auth | 2/1 | Complete   | 2026-05-25 |
 | 2. Course + Student Management | 0/4 | Not started | - |
 | 3. Check-In System | 0/4 | Not started | - |
 | 4. Real-Time Dashboard | 0/4 | Not started | - |
