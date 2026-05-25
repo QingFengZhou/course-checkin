@@ -7,7 +7,7 @@ Build a lightweight real-time course attendance check-in system that handles 100
 ## Phases
 
 - [x] **Phase 1: Foundation + Auth** - PostgreSQL schema, Drizzle ORM, teacher login with JWT + HTTP-only cookies, base layout (completed 2026-05-26)
-- [ ] **Phase 2: Course + Student Management** - Course CRUD, student roster management, enrollment API
+- [x] **Phase 2: Course + Student Management** - Course CRUD, student roster management, enrollment API (completed 2026-05-25)
 - [ ] **Phase 3: Check-In System** - QR code generation, student check-in submission, session lifecycle, manual sign-in
 - [ ] **Phase 4: Real-Time Dashboard** - WebSocket server, room-based broadcasting, live attendance rate and student lists
 - [ ] **Phase 5: History & Reporting** - Session history records, student attendance history and absence tracking
@@ -42,7 +42,7 @@ Plans:
 Plans:
 - [x] 02-01-PLAN.md — Course + student schema, types, Zod validation (Wave 1)
 - [x] 02-02-PLAN.md — Course + student REST APIs with ownership enforcement (Wave 2)
-- [ ] 02-03-PLAN.md — Dashboard UI: course card grid, create/delete, student roster (Wave 3)
+- [x] 02-03-PLAN.md — Dashboard UI: course card grid, create/delete, student roster (Wave 3)
 
 ### Phase 3: Check-In System
 **Goal**: Teachers can initiate check-in sessions and students can complete check-in via QR code
@@ -103,7 +103,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation + Auth | 4/4 | Complete   | 2026-05-26 |
-| 2. Course + Student Management | 2/3 | In Progress|  |
+| 2. Course + Student Management | 3/3 | Complete   | 2026-05-25 |
 | 3. Check-In System | 0/4 | Not started | - |
 | 4. Real-Time Dashboard | 0/4 | Not started | - |
 | 5. History & Reporting | 0/3 | Not started | - |
