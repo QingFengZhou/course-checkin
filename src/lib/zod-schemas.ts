@@ -14,3 +14,13 @@ export const setupSchema = z.object({
   password: z.string().min(6, "Password must be at least 6 characters"),
   displayName: z.string().min(1, "Display name is required"),
 });
+
+export const createCourseSchema = z.object({
+  name: z.string().min(1, "Course name is required"),
+  semester: z.string().min(1, "Semester is required"),
+});
+
+export const enrollStudentSchema = z.object({
+  studentId: z.string().min(1, "Student ID is required"),
+  name: z.string().min(1, "Student name is required"),
+});
