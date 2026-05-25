@@ -14,7 +14,7 @@ export async function signToken(payload: Omit<JwtPayload, "iat" | "exp">): Promi
 
 export async function verifyToken(token: string): Promise<JwtPayload> {
   const { payload } = await jwtVerify(token, secret);
-  return payload as JwtPayload;
+  return payload as unknown as JwtPayload;
 }
 
 export function setAuthCookie(response: NextResponse, token: string): void {
