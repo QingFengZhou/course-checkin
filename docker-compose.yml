@@ -1,9 +1,10 @@
-# docker compose up    # starts PostgreSQL 17 locally
 version: "3.8"
+
 services:
   postgres:
-    image: postgres:17
+    image: postgres:17-alpine
     container_name: coursecheckin-db
+    restart: unless-stopped
     environment:
       POSTGRES_DB: coursecheckin
       POSTGRES_USER: coursecheckin
@@ -11,11 +12,27 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - docker-data:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U coursecheckin"]
       interval: 5s
       timeout: 3s
       retries: 5
+
+  app:
+    build: .
+    container_name: coursecheckin-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://coursecheckin:coursecheckin@postgres:5432/coursecheckin
+      JWT_SECRET: change-this-to-a-random-string-at-least-32-chars
+      NODE_ENV: production
+      NEXT_PUBLIC_BASE_URL: http://124.222.63.25:3000
+    depends_on:
+      postgres:
+        condition: service_healthy
+
 volumes:
-  docker-data:
+  pgdata:
