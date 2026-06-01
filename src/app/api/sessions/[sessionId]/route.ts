@@ -6,6 +6,7 @@ import { students } from "@/db/schema/students";
 import { eq, and, count, notInArray } from "drizzle-orm";
 import { getAuthSession } from "@/lib/auth";
 import { endSession } from "@/lib/checkin-service";
+import { isSessionExpired } from "@/lib/checkin-service";
 
 /** GET /api/sessions/[sessionId] — teacher-only session status with attendance count */
 export async function GET(
@@ -45,6 +46,13 @@ export async function GET(
         { error: "签到记录不存在或无权访问" },
         { status: 403 },
       );
+    }
+
+    // Auto-close expired session
+    if (row.status === "active" && isSessionExpired(row)) {
+      await endSession(row.id);
+      row.status = "closed";
+      row.closedAt = new Date();
     }
 
     const [countRow] = await db

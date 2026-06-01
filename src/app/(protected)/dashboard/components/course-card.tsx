@@ -1,8 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import type { CourseWithStudentCount } from "@/lib/course-types";
+
+interface ActiveSession {
+  sessionId: string;
+  token: string;
+  expiresAt: string;
+}
 
 interface CourseCardProps {
   course: CourseWithStudentCount;
@@ -15,7 +21,29 @@ export default function CourseCard({ course, onDelete, onManageStudents }: Cours
   const [startingCheckin, setStartingCheckin] = useState(false);
   const [checkinError, setCheckinError] = useState("");
   const [durationMinutes, setDurationMinutes] = useState(5);
-  const [showDurationPicker, setShowDurationPicker] = useState(false);
+  const [activeSession, setActiveSession] = useState<ActiveSession | null>(null);
+  const [checkingActive, setCheckingActive] = useState(true);
+
+  // Check for active session on mount
+  useEffect(() => {
+    let cancelled = false;
+    fetch(`/api/courses/${course.id}/active-session`, { credentials: "include" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((json) => {
+        if (!cancelled && json?.data?.token) {
+          setActiveSession({
+            sessionId: json.data.sessionId,
+            token: json.data.token,
+            expiresAt: json.data.expiresAt,
+          });
+        }
+      })
+      .catch(() => {})
+      .finally(() => {
+        if (!cancelled) setCheckingActive(false);
+      });
+    return () => { cancelled = true; };
+  }, [course.id]);
 
   const handleDelete = async () => {
     const confirmed = window.confirm(
@@ -63,10 +91,6 @@ export default function CourseCard({ course, onDelete, onManageStudents }: Cours
         {course.studentCount} 名学生
       </div>
 
-      {checkinError && (
-        <p className="text-xs text-red-500">{checkinError}</p>
-      )}
-
       <div className="flex flex-wrap gap-2 mt-2">
         <button
           onClick={() => router.push(`/dashboard/courses/${course.id}/attendance`)}
@@ -94,28 +118,49 @@ export default function CourseCard({ course, onDelete, onManageStudents }: Cours
         </button>
       </div>
 
-      {/* Duration + Start */}
-      <div className="flex gap-2 items-center">
-        <select
-          value={durationMinutes}
-          onChange={(e) => setDurationMinutes(Number(e.target.value))}
-          className="border border-gray-300 rounded-md px-2 py-2 text-sm text-gray-600 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          <option value={1}>1 分钟</option>
-          <option value={2}>2 分钟</option>
-          <option value={5}>5 分钟</option>
-          <option value={10}>10 分钟</option>
-          <option value={15}>15 分钟</option>
-          <option value={30}>30 分钟</option>
-        </select>
+      {activeSession ? (
+        /* Active session exists — show "查看签到码" */
         <button
-          onClick={handleStartCheckin}
-          disabled={startingCheckin}
-          className="flex-1 bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed text-sm font-medium"
+          onClick={() =>
+            router.push(
+              `/checkin/${course.id}?session=${activeSession.token}&sessionId=${activeSession.sessionId}&expiresAt=${encodeURIComponent(activeSession.expiresAt)}`,
+            )
+          }
+          className="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 text-sm font-medium"
         >
-          {startingCheckin ? "发起中..." : "发起签到"}
+          查看签到码
         </button>
-      </div>
+      ) : (
+        <>
+          {checkinError && (
+            <p className="text-xs text-red-500">{checkinError}</p>
+          )}
+          {/* Duration + Start */}
+          {!checkingActive && (
+            <div className="flex gap-2 items-center">
+              <select
+                value={durationMinutes}
+                onChange={(e) => setDurationMinutes(Number(e.target.value))}
+                className="border border-gray-300 rounded-md px-2 py-2 text-sm text-gray-600 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value={1}>1 分钟</option>
+                <option value={2}>2 分钟</option>
+                <option value={5}>5 分钟</option>
+                <option value={10}>10 分钟</option>
+                <option value={15}>15 分钟</option>
+                <option value={30}>30 分钟</option>
+              </select>
+              <button
+                onClick={handleStartCheckin}
+                disabled={startingCheckin}
+                className="flex-1 bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed text-sm font-medium"
+              >
+                {startingCheckin ? "发起中..." : "发起签到"}
+              </button>
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 }

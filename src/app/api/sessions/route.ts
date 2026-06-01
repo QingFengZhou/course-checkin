@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db";
 import { courses } from "@/db/schema";
-import { eq, and } from "drizzle-orm";
+import { checkInSessions } from "@/db/schema/checkin";
+import { eq, and, gt } from "drizzle-orm";
 import { getAuthSession } from "@/lib/auth";
 import { createSessionSchema } from "@/lib/zod-schemas";
 import { createSession } from "@/lib/checkin-service";
@@ -38,6 +39,29 @@ export async function POST(request: NextRequest) {
         { error: "课程不存在或无权访问" },
         { status: 403 },
       );
+    }
+
+    // Check for existing active session — return it instead of creating a new one
+    const [existingActive] = await db
+      .select()
+      .from(checkInSessions)
+      .where(
+        and(
+          eq(checkInSessions.courseId, parsed.data.courseId),
+          eq(checkInSessions.status, "active"),
+          gt(checkInSessions.expiresAt, new Date()),
+        ),
+      )
+      .limit(1);
+
+    if (existingActive) {
+      return NextResponse.json({
+        data: {
+          token: existingActive.token,
+          sessionId: existingActive.id,
+          expiresAt: existingActive.expiresAt,
+        },
+      });
     }
 
     const result = await createSession(
