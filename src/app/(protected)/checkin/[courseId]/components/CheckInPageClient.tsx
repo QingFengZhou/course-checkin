@@ -107,6 +107,11 @@ export default function CheckInPageClient({ course }: CheckInPageClientProps) {
       const r = calculateRemaining();
       setTimeLeft(r);
       if (r <= 0) {
+        // Auto-end session on the server when countdown expires
+        fetch(`/api/sessions/${sessionInfo.id}`, {
+          method: "PATCH",
+          credentials: "include",
+        }).catch(() => {});
         setSessionEnded(true);
         stopTimers();
       }
@@ -180,28 +185,55 @@ export default function CheckInPageClient({ course }: CheckInPageClientProps) {
     }
   };
 
-  // Initialize from URL search params (pre-created session from course card)
+  // Initialize from URL search params or auto-detect active session
   useEffect(() => {
     if (initialized) return;
 
-    const token = searchParams.get("session");
-    const sid = searchParams.get("sessionId");
-    const expires = searchParams.get("expiresAt");
+    const initialize = async () => {
+      const token = searchParams.get("session");
+      const sid = searchParams.get("sessionId");
+      const expires = searchParams.get("expiresAt");
 
-    if (token && sid && expires) {
-      const sessionInfo: SessionInfo = {
-        id: sid,
-        token,
-        status: "active",
-        expiresAt: decodeURIComponent(expires),
-        closedAt: null,
-      };
-      setSession(sessionInfo);
-      startCountdown(sessionInfo);
-    }
+      if (token && sid && expires) {
+        const sessionInfo: SessionInfo = {
+          id: sid,
+          token,
+          status: "active",
+          expiresAt: decodeURIComponent(expires),
+          closedAt: null,
+        };
+        setSession(sessionInfo);
+        startCountdown(sessionInfo);
+      } else {
+        // Auto-detect active session for this course
+        try {
+          const res = await fetch(`/api/courses/${course.id}/active-session`, {
+            credentials: "include",
+          });
+          if (res.ok) {
+            const json = await res.json();
+            if (json?.data?.token) {
+              const sessionInfo: SessionInfo = {
+                id: json.data.sessionId,
+                token: json.data.token,
+                status: "active",
+                expiresAt: json.data.expiresAt,
+                closedAt: null,
+              };
+              setSession(sessionInfo);
+              startCountdown(sessionInfo);
+            }
+          }
+        } catch {
+          // Silently ignore — page shows "发起签到" button without session
+        }
+      }
 
-    setInitialized(true);
-  }, [searchParams, initialized, startCountdown]);
+      setInitialized(true);
+    };
+
+    initialize();
+  }, [searchParams, initialized, startCountdown, course.id]);
 
   // WebSocket hook: real-time updates (always called — React rules of hooks)
   const effectiveSessionId = session?.id ?? null;
