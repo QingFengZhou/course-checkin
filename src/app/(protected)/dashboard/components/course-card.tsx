@@ -42,7 +42,6 @@ export default function CourseCard({ course, onDelete, onManageStudents }: Cours
   const [activeSession, setActiveSession] = useState<ActiveSession | null>(null);
   const [checkingActive, setCheckingActive] = useState(true);
   const [colorIndex, setColorIndex] = useState(0);
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   // Deterministic color based on course id
   useEffect(() => {
@@ -74,14 +73,9 @@ export default function CourseCard({ course, onDelete, onManageStudents }: Cours
     return () => { cancelled = true; };
   }, [course.id]);
 
-  const handleDeleteClick = () => {
-    if (showDeleteConfirm) {
-      onDelete(course.id);
-      setShowDeleteConfirm(false);
-    } else {
-      setShowDeleteConfirm(true);
-      setTimeout(() => setShowDeleteConfirm(false), 4000);
-    }
+  const handleDelete = () => {
+    const confirmed = window.confirm("确定要删除此课程吗？这将同时删除该课程下的所有学生。");
+    if (confirmed) onDelete(course.id);
   };
 
   const handleStartCheckin = async () => {
@@ -160,29 +154,25 @@ export default function CourseCard({ course, onDelete, onManageStudents }: Cours
             onClick={() => router.push(`/dashboard/courses/${course.id}/attendance`)}
             className="flex-1 min-w-[60px] px-3 py-2 rounded-xl border border-gray-100 text-gray-400 text-xs font-medium hover:border-emerald-200 hover:text-emerald-600 hover:bg-emerald-50/50 transition-all"
           >
-            考勤
+            考勤总览
           </button>
           <button
             onClick={() => router.push(`/dashboard/courses/${course.id}/history`)}
             className="flex-1 min-w-[60px] px-3 py-2 rounded-xl border border-gray-100 text-gray-400 text-xs font-medium hover:border-blue-200 hover:text-blue-600 hover:bg-blue-50/50 transition-all"
           >
-            历史
+            历史记录
           </button>
           <button
             onClick={() => onManageStudents(course)}
             className="flex-1 min-w-[60px] px-3 py-2 rounded-xl border border-gray-100 text-gray-400 text-xs font-medium hover:border-violet-200 hover:text-violet-600 hover:bg-violet-50/50 transition-all"
           >
-            学生
+            管理学生
           </button>
           <button
-            onClick={handleDeleteClick}
-            className={`px-2.5 py-2 rounded-xl text-xs font-medium transition-all ${
-              showDeleteConfirm
-                ? "bg-red-500 text-white shadow-sm"
-                : "text-gray-300 hover:text-red-400"
-            }`}
+            onClick={handleDelete}
+            className="px-2.5 py-2 rounded-xl text-xs font-medium text-gray-300 hover:text-red-400 transition-colors"
           >
-            {showDeleteConfirm ? "确认？" : "删除"}
+            删除
           </button>
         </div>
 
@@ -207,12 +197,12 @@ export default function CourseCard({ course, onDelete, onManageStudents }: Cours
                   onChange={(e) => setDurationMinutes(Number(e.target.value))}
                   className="flex-shrink-0 border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-500 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-shadow"
                 >
-                  <option value={1}>1分</option>
-                  <option value={2}>2分</option>
-                  <option value={5}>5分</option>
-                  <option value={10}>10分</option>
-                  <option value={15}>15分</option>
-                  <option value={30}>30分</option>
+                  <option value={1}>1 分钟</option>
+                  <option value={2}>2 分钟</option>
+                  <option value={5}>5 分钟</option>
+                  <option value={10}>10 分钟</option>
+                  <option value={15}>15 分钟</option>
+                  <option value={30}>30 分钟</option>
                 </select>
                 <button
                   onClick={handleStartCheckin}
