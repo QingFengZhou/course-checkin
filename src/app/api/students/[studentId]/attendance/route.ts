@@ -43,7 +43,7 @@ export async function GET(
       );
     }
 
-    // Get all sessions for this course (completed and active)
+    // Get all sessions for this course (only closed/completed)
     const allSessions = await db
       .select({
         id: checkInSessions.id,
@@ -52,7 +52,12 @@ export async function GET(
         closedAt: checkInSessions.closedAt,
       })
       .from(checkInSessions)
-      .where(eq(checkInSessions.courseId, student.courseId))
+      .where(
+        and(
+          eq(checkInSessions.courseId, student.courseId),
+          eq(checkInSessions.status, "closed"),
+        ),
+      )
       .orderBy(desc(checkInSessions.createdAt));
 
     // Get this student's attendance records

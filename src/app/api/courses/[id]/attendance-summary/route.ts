@@ -43,11 +43,16 @@ export async function GET(
     const sortBy = url.searchParams.get("sortBy") || "attendanceRate";
     const sortOrder = url.searchParams.get("sortOrder") || "asc";
 
-    // Get total session count for this course
+    // Get total COMPLETED session count for this course (exclude active sessions)
     const [totalSessionsRow] = await db
       .select({ value: count() })
       .from(checkInSessions)
-      .where(eq(checkInSessions.courseId, courseId));
+      .where(
+        and(
+          eq(checkInSessions.courseId, courseId),
+          eq(checkInSessions.status, "closed"),
+        ),
+      );
 
     const totalSessions = totalSessionsRow?.value ?? 0;
     const totalStudents = await db
