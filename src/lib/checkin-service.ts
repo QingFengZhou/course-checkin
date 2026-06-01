@@ -1,7 +1,8 @@
 import { nanoid } from "nanoid";
 import { db } from "@/db";
-import { eq, and } from "drizzle-orm";
+import { eq, and, count } from "drizzle-orm";
 import { checkInSessions, attendanceRecords } from "@/db/schema/checkin";
+import { students } from "@/db/schema/students";
 import type { SelectCheckInSession } from "@/db/schema/checkin";
 
 /** Session lifetime: 5 minutes (D-3.01) */
@@ -98,6 +99,37 @@ export async function endSession(sessionId: string) {
     .update(checkInSessions)
     .set({ status: "closed", closedAt: new Date() })
     .where(eq(checkInSessions.id, sessionId));
+}
+
+/**
+ * Get attendance stats for a session.
+ * Returns checked-in count and total students in the course.
+ */
+export async function getSessionStats(sessionId: string) {
+  const [checkedResult] = await db
+    .select({ count: count() })
+    .from(attendanceRecords)
+    .where(eq(attendanceRecords.sessionId, sessionId));
+
+  const [session] = await db
+    .select({ courseId: checkInSessions.courseId })
+    .from(checkInSessions)
+    .where(eq(checkInSessions.id, sessionId))
+    .limit(1);
+
+  let totalStudents = 0;
+  if (session) {
+    const [studentResult] = await db
+      .select({ count: count() })
+      .from(students)
+      .where(eq(students.courseId, session.courseId));
+    totalStudents = studentResult.count;
+  }
+
+  return {
+    checkedInCount: checkedResult.count,
+    totalStudents,
+  };
 }
 
 /**

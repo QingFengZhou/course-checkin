@@ -3,7 +3,17 @@ import { db } from "@/db";
 import { students } from "@/db/schema";
 import { eq, and } from "drizzle-orm";
 import { submitAttendanceSchema } from "@/lib/zod-schemas";
-import { getActiveSession, submitAttendance } from "@/lib/checkin-service";
+import { getActiveSession, submitAttendance, getSessionStats } from "@/lib/checkin-service";
+
+// Dynamic import for broadcast manager — it may not be available in all environments
+async function getBroadcastManager() {
+  try {
+    const { BroadcastManager } = await import("@/lib/ws-broadcast");
+    return BroadcastManager;
+  } catch {
+    return null;
+  }
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -67,6 +77,23 @@ export async function POST(request: NextRequest) {
         { status: 200 },
       );
     }
+
+    // Fire-and-forget: broadcast attendance update via WebSocket
+    // Non-blocking — API response doesn't depend on broadcast
+    getBroadcastManager().then((bm) => {
+      if (bm) {
+        getSessionStats(session.id).then((stats) => {
+          bm.broadcastAttendanceUpdate(
+            session.id,
+            stats.checkedInCount,
+            stats.totalStudents,
+            { studentId: student.studentId, studentName: student.name },
+          );
+        });
+      }
+    }).catch(() => {
+      // Broadcast errors are non-fatal
+    });
 
     return NextResponse.json(
       {
