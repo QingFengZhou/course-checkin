@@ -3,7 +3,7 @@ import { db } from "@/db";
 import { students } from "@/db/schema/students";
 import { checkInSessions, attendanceRecords } from "@/db/schema/checkin";
 import { courses } from "@/db/schema/courses";
-import { eq, and, count, sql } from "drizzle-orm";
+import { eq, and, count, inArray } from "drizzle-orm";
 import { getAuthSession } from "@/lib/auth";
 
 export async function GET(
@@ -43,9 +43,9 @@ export async function GET(
     const sortBy = url.searchParams.get("sortBy") || "attendanceRate";
     const sortOrder = url.searchParams.get("sortOrder") || "asc";
 
-    // Get total COMPLETED session count for this course (exclude active sessions)
-    const [totalSessionsRow] = await db
-      .select({ value: count() })
+    // Get all closed session IDs for this course
+    const closedSessions = await db
+      .select({ id: checkInSessions.id })
       .from(checkInSessions)
       .where(
         and(
@@ -53,42 +53,55 @@ export async function GET(
           eq(checkInSessions.status, "closed"),
         ),
       );
+    const closedSessionIds = closedSessions.map((s) => s.id);
 
-    const totalSessions = totalSessionsRow?.value ?? 0;
+    const totalSessions = closedSessionIds.length;
     const totalStudents = await db
       .select({ value: count() })
       .from(students)
       .where(eq(students.courseId, courseId));
 
-    // Get all students with attendance counts
+    // Get all students
     const allStudents = await db
       .select({
         id: students.id,
         studentId: students.studentId,
         name: students.name,
-        presentCount: sql<number>`
-          (SELECT count(*) FROM ${attendanceRecords}
-           INNER JOIN ${checkInSessions} ON ${attendanceRecords.sessionId} = ${checkInSessions.id}
-           WHERE ${attendanceRecords.studentId} = ${students.id}
-           AND ${checkInSessions.status} = 'closed')
-        `,
       })
       .from(students)
       .where(eq(students.courseId, courseId))
       .limit(limit)
       .offset(offset);
 
+    // Count present records only for closed sessions using a single query
+    const attendanceMap = new Map<string, number>();
+    if (closedSessionIds.length > 0) {
+      const rows = await db
+        .select({
+          studentId: attendanceRecords.studentId,
+          value: count(),
+        })
+        .from(attendanceRecords)
+        .where(inArray(attendanceRecords.sessionId, closedSessionIds))
+        .groupBy(attendanceRecords.studentId);
+
+      for (const row of rows) {
+        attendanceMap.set(row.studentId, row.value);
+      }
+    }
+
     const result = allStudents.map((s) => {
-      const absenceCount = totalSessions - s.presentCount;
+      const presentCount = attendanceMap.get(s.id) ?? 0;
+      const absenceCount = totalSessions - presentCount;
       const attendanceRate =
         totalSessions > 0
-          ? Math.round((s.presentCount / totalSessions) * 100)
+          ? Math.round((presentCount / totalSessions) * 100)
           : 100;
       return {
         id: s.id,
         studentId: s.studentId,
         name: s.name,
-        presentCount: s.presentCount,
+        presentCount,
         absenceCount,
         attendanceRate,
       };
