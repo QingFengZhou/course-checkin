@@ -1,0 +1,21 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e3]:
+      - heading "高等数学" [level=1] [ref=e13]
+      - paragraph [ref=e14]: 请在下方输入信息完成签到
+      - generic [ref=e15]:
+        - generic [ref=e16]:
+          - generic [ref=e17]: 学号
+          - textbox "学号" [ref=e18]:
+            - /placeholder: 请输入学号
+            - text: "2024001"
+        - generic [ref=e19]:
+          - generic [ref=e20]: 姓名
+          - textbox "姓名" [ref=e21]:
+            - /placeholder: 请输入姓名
+            - text: 张三
+        - generic [ref=e24]: Internal server error
+        - button "签到" [ref=e22]
+  - button "Open Next.js Dev Tools" [ref=e9] [cursor=pointer]:
+    - img [ref=e10]
+  - alert [ref=e23]

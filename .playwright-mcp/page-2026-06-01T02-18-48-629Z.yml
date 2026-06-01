@@ -1,0 +1,9 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e4]:
+      - link "← 返回仪表盘" [ref=e5] [cursor=pointer]:
+        - /url: /dashboard
+      - heading "课程 — 考勤总览" [level=1] [ref=e6]
+    - textbox "搜索学号或姓名..." [ref=e9]
+  - button "Open Next.js Dev Tools" [ref=e17] [cursor=pointer]:
+    - img [ref=e18]

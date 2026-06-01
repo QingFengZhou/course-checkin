@@ -1,0 +1,56 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e4]:
+      - heading "CourseCheckIn" [level=1] [ref=e5]
+      - button "退出登录" [ref=e6]
+    - generic [ref=e7]:
+      - generic [ref=e8]:
+        - heading "我的课程" [level=2] [ref=e9]
+        - button "+ 创建课程" [ref=e10]
+      - generic [ref=e12]:
+        - heading "高等数学" [level=3] [ref=e13]
+        - paragraph [ref=e14]: 2026 春季
+        - generic [ref=e15]: 3 名学生
+        - generic [ref=e16]:
+          - button "管理学生" [ref=e17]
+          - button "删除" [ref=e18]
+        - button "发起签到" [ref=e19]
+    - generic [ref=e31]:
+      - generic [ref=e32]:
+        - heading "学生名单 — 高等数学" [level=2] [ref=e33]
+        - button "×" [ref=e34]
+      - generic [ref=e35]:
+        - textbox "请输入学号" [ref=e36]
+        - textbox "请输入姓名" [ref=e37]
+        - button "添加" [ref=e38]
+      - table [ref=e39]:
+        - rowgroup [ref=e40]:
+          - row "学号 姓名 签到 操作" [ref=e41]:
+            - columnheader "学号" [ref=e42]
+            - columnheader "姓名" [ref=e43]
+            - columnheader "签到" [ref=e44]
+            - columnheader "操作" [ref=e45]
+        - rowgroup [ref=e46]:
+          - row "2024001 张三 ✓ 已签到 移除" [ref=e68]:
+            - cell "2024001" [ref=e48]
+            - cell "张三" [ref=e49]
+            - cell "✓ 已签到" [ref=e69]
+            - cell "移除" [ref=e52]:
+              - button "移除" [ref=e53]
+          - row "2024002 李四 签到 移除" [ref=e54]:
+            - cell "2024002" [ref=e55]
+            - cell "李四" [ref=e56]
+            - cell "签到" [ref=e57]:
+              - button "签到" [ref=e58]
+            - cell "移除" [ref=e59]:
+              - button "移除" [ref=e60]
+          - row "2024003 王五 签到 移除" [ref=e61]:
+            - cell "2024003" [ref=e62]
+            - cell "王五" [ref=e63]
+            - cell "签到" [ref=e64]:
+              - button "签到" [ref=e65]
+            - cell "移除" [ref=e66]:
+              - button "移除" [ref=e67]
+  - button "Open Next.js Dev Tools" [ref=e25] [cursor=pointer]:
+    - img [ref=e26]
+  - alert [ref=e29]

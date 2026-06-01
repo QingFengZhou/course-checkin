@@ -1,0 +1,20 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e3]:
+      - heading "高等数学" [level=1] [ref=e14]
+      - paragraph [ref=e15]: 请在下方输入信息完成签到
+      - generic [ref=e16]:
+        - generic [ref=e17]:
+          - generic [ref=e18]: 学号
+          - textbox "学号" [ref=e19]:
+            - /placeholder: 请输入学号
+            - text: "123456"
+        - generic [ref=e20]:
+          - generic [ref=e21]: 姓名
+          - textbox "姓名" [ref=e22]:
+            - /placeholder: 请输入姓名
+        - generic [ref=e24]: 学号或姓名不匹配，请确认后重试
+        - button "签到" [ref=e23]
+  - button "Open Next.js Dev Tools" [ref=e9] [cursor=pointer]:
+    - img [ref=e10]
+  - alert [ref=e13]

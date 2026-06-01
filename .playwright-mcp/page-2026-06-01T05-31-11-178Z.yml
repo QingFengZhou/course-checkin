@@ -1,0 +1,26 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]: C
+        - heading "CourseCheckIn" [level=1] [ref=e6]
+        - paragraph [ref=e7]: 课程签到管理系统
+      - generic [ref=e8]:
+        - heading "登录" [level=2] [ref=e9]
+        - generic [ref=e10]:
+          - generic [ref=e11]:
+            - generic [ref=e12]: 邮箱或用户名
+            - textbox "邮箱或用户名" [ref=e13]:
+              - /placeholder: 输入邮箱或用户名
+              - text: testteacher
+          - generic [ref=e14]:
+            - generic [ref=e15]: 密码
+            - textbox "密码" [ref=e16]:
+              - /placeholder: 输入密码
+              - text: password123
+          - generic [ref=e21]: Internal server error
+          - button "登 录" [ref=e17] [cursor=pointer]
+      - paragraph [ref=e18]:
+        - link "首次使用？创建账号" [ref=e19] [cursor=pointer]:
+          - /url: /setup
+  - alert [ref=e20]

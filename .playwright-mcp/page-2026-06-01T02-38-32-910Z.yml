@@ -1,0 +1,49 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e4]:
+      - heading "CourseCheckIn" [level=1] [ref=e5]
+      - button "退出登录" [ref=e6]
+    - generic [ref=e7]:
+      - generic [ref=e8]:
+        - heading "我的课程" [level=2] [ref=e9]
+        - button "+ 创建课程" [ref=e10]
+      - generic [ref=e11]:
+        - generic [ref=e12]:
+          - heading "高等数学" [level=3] [ref=e13]
+          - paragraph [ref=e14]: 2026 春季
+          - generic [ref=e15]: 3 名学生
+          - generic [ref=e16]:
+            - button "考勤总览" [ref=e17]
+            - button "历史记录" [ref=e18]
+            - button "管理学生" [ref=e19]
+            - button "删除" [ref=e20]
+          - generic [ref=e21]:
+            - combobox [ref=e22]:
+              - option "1 分钟"
+              - option "2 分钟"
+              - option "5 分钟" [selected]
+              - option "10 分钟"
+              - option "15 分钟"
+              - option "30 分钟"
+            - button "发起签到" [ref=e23]
+        - generic [ref=e24]:
+          - heading "大数据开发" [level=3] [ref=e25]
+          - paragraph [ref=e26]: "2026"
+          - generic [ref=e27]: 4 名学生
+          - generic [ref=e28]:
+            - button "考勤总览" [ref=e29]
+            - button "历史记录" [ref=e30]
+            - button "管理学生" [ref=e31]
+            - button "删除" [ref=e32]
+          - generic [ref=e33]:
+            - combobox [ref=e34]:
+              - option "1 分钟"
+              - option "2 分钟"
+              - option "5 分钟" [selected]
+              - option "10 分钟"
+              - option "15 分钟"
+              - option "30 分钟"
+            - button "发起签到" [ref=e35]
+  - button "Open Next.js Dev Tools" [ref=e41] [cursor=pointer]:
+    - img [ref=e42]
+  - alert [ref=e45]

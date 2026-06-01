@@ -1,0 +1,27 @@
+- generic [active] [ref=e1]:
+  - alert [ref=e15]
+  - main [ref=e16]:
+    - generic [ref=e18]:
+      - heading "CourseCheckIn" [level=1] [ref=e19]
+      - button "退出登录" [ref=e20]
+    - generic [ref=e21]:
+      - generic [ref=e22]:
+        - heading "我的课程" [level=2] [ref=e23]
+        - button "+ 创建课程" [ref=e24]
+      - generic [ref=e25]:
+        - generic [ref=e26]:
+          - heading "高等数学" [level=3] [ref=e27]
+          - paragraph [ref=e28]: 2026 春季
+          - generic [ref=e29]: 3 名学生
+          - generic [ref=e30]:
+            - button "管理学生" [ref=e31]
+            - button "删除" [ref=e32]
+          - button "发起签到" [ref=e33]
+        - generic [ref=e34]:
+          - heading "大数据开发" [level=3] [ref=e35]
+          - paragraph [ref=e36]: "2026"
+          - generic [ref=e37]: 2 名学生
+          - generic [ref=e38]:
+            - button "管理学生" [ref=e39]
+            - button "删除" [ref=e40]
+          - button "发起签到" [ref=e41]

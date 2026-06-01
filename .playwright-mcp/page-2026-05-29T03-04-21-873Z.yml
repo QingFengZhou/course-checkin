@@ -1,0 +1,24 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e20] [cursor=pointer]:
+    - img [ref=e21]
+  - alert [ref=e24]
+  - main [ref=e43]:
+    - generic [ref=e45]:
+      - link "← 返回仪表盘" [ref=e46] [cursor=pointer]:
+        - /url: /dashboard
+      - heading "签到管理" [level=1] [ref=e47]
+    - generic [ref=e48]:
+      - paragraph [ref=e50]:
+        - text: "课程: 高等数学|状态:"
+        - generic [ref=e51]: 进行中
+        - generic [ref=e52]: 剩余 4:58
+      - generic [ref=e53]:
+        - generic [ref=e54]:
+          - generic [ref=e55]:
+            - img [ref=e56]
+            - paragraph [ref=e59]: http://localhost:3000/checkin?session=Kd0V2XGb-1dX5b0ctl2bg
+          - generic [ref=e61]:
+            - paragraph [ref=e62]: 签到统计
+            - paragraph [ref=e63]: 已签到 0 / 3 人
+            - paragraph [ref=e64]: 等待学生签到...
+        - button "结束签到" [ref=e66]

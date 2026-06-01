@@ -1,0 +1,89 @@
+- generic [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e4]:
+      - heading "CourseCheckIn" [level=1] [ref=e5]
+      - button "退出登录" [ref=e6]
+    - generic [ref=e7]:
+      - generic [ref=e8]:
+        - heading "我的课程" [level=2] [ref=e9]
+        - button "+ 创建课程" [ref=e10]
+      - generic [ref=e11]:
+        - generic [ref=e12]:
+          - heading "高等数学" [level=3] [ref=e13]
+          - paragraph [ref=e14]: 2026 春季
+          - generic [ref=e15]: 3 名学生
+          - generic [ref=e16]:
+            - button "考勤总览" [ref=e17]
+            - button "历史记录" [ref=e18]
+            - button "管理学生" [active] [ref=e19]
+            - button "删除" [ref=e20]
+          - generic [ref=e21]:
+            - combobox [ref=e22]:
+              - option "1 分钟"
+              - option "2 分钟"
+              - option "5 分钟" [selected]
+              - option "10 分钟"
+              - option "15 分钟"
+              - option "30 分钟"
+            - button "发起签到" [ref=e23]
+        - generic [ref=e24]:
+          - heading "大数据开发" [level=3] [ref=e25]
+          - paragraph [ref=e26]: "2026"
+          - generic [ref=e27]: 4 名学生
+          - generic [ref=e28]:
+            - button "考勤总览" [ref=e29]
+            - button "历史记录" [ref=e30]
+            - button "管理学生" [ref=e31]
+            - button "删除" [ref=e32]
+          - generic [ref=e33]:
+            - combobox [ref=e34]:
+              - option "1 分钟"
+              - option "2 分钟"
+              - option "5 分钟" [selected]
+              - option "10 分钟"
+              - option "15 分钟"
+              - option "30 分钟"
+            - button "发起签到" [ref=e35]
+    - generic [ref=e47]:
+      - generic [ref=e48]:
+        - heading "学生名单 — 高等数学" [level=2] [ref=e49]
+        - button "×" [ref=e50]
+      - generic [ref=e51]:
+        - textbox "请输入学号" [ref=e52]
+        - textbox "请输入姓名" [ref=e53]
+        - button "添加" [ref=e54]
+      - table [ref=e55]:
+        - rowgroup [ref=e56]:
+          - row "学号 姓名 签到 操作" [ref=e57]:
+            - columnheader "学号" [ref=e58]
+            - columnheader "姓名" [ref=e59]
+            - columnheader "签到" [ref=e60]
+            - columnheader "操作" [ref=e61]
+        - rowgroup [ref=e62]:
+          - row "2024001 张三 签到 考勤 移除" [ref=e63]:
+            - cell "2024001" [ref=e64]
+            - cell "张三" [ref=e65]
+            - cell "签到" [ref=e66]:
+              - button "签到" [ref=e67]
+            - cell "考勤 移除" [ref=e68]:
+              - button "考勤" [ref=e69]
+              - button "移除" [ref=e70]
+          - row "2024002 李四 签到 考勤 移除" [ref=e71]:
+            - cell "2024002" [ref=e72]
+            - cell "李四" [ref=e73]
+            - cell "签到" [ref=e74]:
+              - button "签到" [ref=e75]
+            - cell "考勤 移除" [ref=e76]:
+              - button "考勤" [ref=e77]
+              - button "移除" [ref=e78]
+          - row "2024003 王五 签到 考勤 移除" [ref=e79]:
+            - cell "2024003" [ref=e80]
+            - cell "王五" [ref=e81]
+            - cell "签到" [ref=e82]:
+              - button "签到" [ref=e83]
+            - cell "考勤 移除" [ref=e84]:
+              - button "考勤" [ref=e85]
+              - button "移除" [ref=e86]
+  - button "Open Next.js Dev Tools" [ref=e41] [cursor=pointer]:
+    - img [ref=e42]
+  - alert [ref=e45]

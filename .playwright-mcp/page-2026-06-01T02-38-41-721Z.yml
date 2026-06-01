@@ -1,0 +1,44 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e41] [cursor=pointer]:
+    - img [ref=e42]
+  - alert [ref=e45]
+  - main [ref=e46]:
+    - generic [ref=e48]:
+      - link "← 返回仪表盘" [ref=e49] [cursor=pointer]:
+        - /url: /dashboard
+      - heading "课程 — 考勤总览" [level=1] [ref=e50]
+    - generic [ref=e51]:
+      - textbox "搜索学号或姓名..." [ref=e53]
+      - table [ref=e55]:
+        - rowgroup [ref=e56]:
+          - row "学号 姓名 出勤率 ▲ 已签 / 缺勤 操作" [ref=e57]:
+            - columnheader "学号" [ref=e58] [cursor=pointer]
+            - columnheader "姓名" [ref=e59] [cursor=pointer]
+            - columnheader "出勤率 ▲" [ref=e60] [cursor=pointer]
+            - columnheader "已签 / 缺勤" [ref=e61]
+            - columnheader "操作" [ref=e62]
+        - rowgroup [ref=e63]:
+          - row "2024001 张三 0% 0 / 15 查看详情" [ref=e64]:
+            - cell "2024001" [ref=e65]
+            - cell "张三" [ref=e66]
+            - cell "0%" [ref=e67]:
+              - generic [ref=e69]: 0%
+            - cell "0 / 15" [ref=e71]
+            - cell "查看详情" [ref=e72]:
+              - button "查看详情" [ref=e73]
+          - row "2024002 李四 0% 0 / 15 查看详情" [ref=e74]:
+            - cell "2024002" [ref=e75]
+            - cell "李四" [ref=e76]
+            - cell "0%" [ref=e77]:
+              - generic [ref=e79]: 0%
+            - cell "0 / 15" [ref=e81]
+            - cell "查看详情" [ref=e82]:
+              - button "查看详情" [ref=e83]
+          - row "2024003 王五 0% 0 / 15 查看详情" [ref=e84]:
+            - cell "2024003" [ref=e85]
+            - cell "王五" [ref=e86]
+            - cell "0%" [ref=e87]:
+              - generic [ref=e89]: 0%
+            - cell "0 / 15" [ref=e91]
+            - cell "查看详情" [ref=e92]:
+              - button "查看详情" [ref=e93]

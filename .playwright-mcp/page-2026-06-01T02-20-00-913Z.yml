@@ -1,0 +1,52 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e15] [cursor=pointer]:
+    - img [ref=e16]
+  - alert [ref=e55]
+  - main [ref=e56]:
+    - generic [ref=e58]:
+      - link "← 返回历史记录" [ref=e59] [cursor=pointer]:
+        - /url: /dashboard/courses/c55891f3-8491-4c59-8f8e-9d3fabff6f9c/history
+      - heading "签到详情" [level=1] [ref=e60]
+    - generic [ref=e61]:
+      - generic [ref=e63]:
+        - generic [ref=e64]:
+          - paragraph [ref=e65]: 签到时间
+          - paragraph [ref=e66]: 2026年5月29日 14:45
+        - generic [ref=e67]:
+          - paragraph [ref=e68]: 状态
+          - paragraph [ref=e69]:
+            - generic [ref=e70]: 已结束
+      - generic [ref=e71]:
+        - paragraph [ref=e72]: 签到率
+        - generic [ref=e73]:
+          - generic [ref=e74]: 50%
+          - generic [ref=e75]: 2 / 4 人
+      - generic [ref=e78]:
+        - generic [ref=e79]:
+          - paragraph [ref=e80]: 已签到 (2)
+          - table [ref=e82]:
+            - rowgroup [ref=e83]:
+              - row "学号 姓名" [ref=e84]:
+                - columnheader "学号" [ref=e85]
+                - columnheader "姓名" [ref=e86]
+            - rowgroup [ref=e87]:
+              - row "211 时候" [ref=e88]:
+                - cell "211" [ref=e89]
+                - cell "时候" [ref=e90]
+              - row "21133 哦哦" [ref=e91]:
+                - cell "21133" [ref=e92]
+                - cell "哦哦" [ref=e93]
+        - generic [ref=e94]:
+          - paragraph [ref=e95]: 未签到 (2)
+          - table [ref=e97]:
+            - rowgroup [ref=e98]:
+              - row "学号 姓名" [ref=e99]:
+                - columnheader "学号" [ref=e100]
+                - columnheader "姓名" [ref=e101]
+            - rowgroup [ref=e102]:
+              - row "12 12" [ref=e103]:
+                - cell "12" [ref=e104]
+                - cell "12" [ref=e105]
+              - row "2024001 张三" [ref=e106]:
+                - cell "2024001" [ref=e107]
+                - cell "张三" [ref=e108]

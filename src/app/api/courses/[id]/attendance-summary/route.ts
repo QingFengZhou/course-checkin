@@ -68,7 +68,9 @@ export async function GET(
         name: students.name,
         presentCount: sql<number>`
           (SELECT count(*) FROM ${attendanceRecords}
-           WHERE ${attendanceRecords.studentId} = ${students.id})
+           INNER JOIN ${checkInSessions} ON ${attendanceRecords.sessionId} = ${checkInSessions.id}
+           WHERE ${attendanceRecords.studentId} = ${students.id}
+           AND ${checkInSessions.status} = 'closed')
         `,
       })
       .from(students)

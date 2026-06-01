@@ -1,0 +1,23 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e4]:
+      - link "← 返回仪表盘" [ref=e5] [cursor=pointer]:
+        - /url: /dashboard
+      - heading "签到管理" [level=1] [ref=e6]
+    - generic [ref=e7]:
+      - paragraph [ref=e9]: "课程: 高等数学"
+      - generic [ref=e10]:
+        - heading "高等数学" [level=2] [ref=e11]
+        - paragraph [ref=e12]: 2026 春季
+        - generic [ref=e13]:
+          - generic [ref=e14]: "签到时长:"
+          - combobox [ref=e15]:
+            - option "1 分钟"
+            - option "2 分钟"
+            - option "5 分钟" [selected]
+            - option "10 分钟"
+            - option "15 分钟"
+            - option "30 分钟"
+        - button "发起签到" [ref=e16]
+  - button "Open Next.js Dev Tools" [ref=e22] [cursor=pointer]:
+    - img [ref=e23]

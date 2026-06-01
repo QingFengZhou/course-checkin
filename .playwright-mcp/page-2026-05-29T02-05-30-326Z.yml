@@ -1,0 +1,44 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e27] [cursor=pointer]:
+    - img [ref=e28]
+  - alert [ref=e31]
+  - main [ref=e47]:
+    - generic [ref=e71]:
+      - heading "CourseCheckIn" [level=1] [ref=e72]
+      - button "退出登录" [ref=e73]
+    - generic [ref=e74]:
+      - generic [ref=e75]:
+        - heading "我的课程" [level=2] [ref=e76]
+        - button "+ 创建课程" [ref=e77]
+      - generic [ref=e79]:
+        - heading "高等数学" [level=3] [ref=e80]
+        - paragraph [ref=e81]: 2026 春季
+        - generic [ref=e82]: 0 名学生
+        - generic [ref=e83]:
+          - button "管理学生" [ref=e84]
+          - button "删除" [ref=e85]
+    - generic [ref=e87]:
+      - generic [ref=e88]:
+        - heading "学生名单 — 高等数学" [level=2] [ref=e89]
+        - button "×" [ref=e90]
+      - generic [ref=e91]:
+        - textbox "请输入学号" [ref=e92]
+        - textbox "请输入姓名" [ref=e93]
+        - button "添加" [ref=e94]
+      - table [ref=e108]:
+        - rowgroup [ref=e109]:
+          - row "学号 姓名 操作" [ref=e110]:
+            - columnheader "学号" [ref=e111]
+            - columnheader "姓名" [ref=e112]
+            - columnheader "操作" [ref=e113]
+        - rowgroup [ref=e114]:
+          - row "2024001 张三 移除" [ref=e115]:
+            - cell "2024001" [ref=e116]
+            - cell "张三" [ref=e117]
+            - cell "移除" [ref=e118]:
+              - button "移除" [ref=e119]
+          - row "2024002 李四 移除" [ref=e120]:
+            - cell "2024002" [ref=e121]
+            - cell "李四" [ref=e122]
+            - cell "移除" [ref=e123]:
+              - button "移除" [ref=e124]

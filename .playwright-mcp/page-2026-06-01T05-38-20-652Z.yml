@@ -1,0 +1,23 @@
+- generic [active] [ref=e1]:
+  - alert [ref=e2]
+  - main [ref=e43]:
+    - generic [ref=e45]:
+      - link "← 返回仪表盘" [ref=e46] [cursor=pointer]:
+        - /url: /dashboard
+      - heading "签到管理" [level=1] [ref=e47]
+    - generic [ref=e48]:
+      - paragraph [ref=e50]:
+        - text: "课程: 大数据导论|状态:"
+        - generic [ref=e51]: 进行中
+        - generic [ref=e52]: 剩余 0:55
+      - generic [ref=e53]:
+        - generic [ref=e54]:
+          - generic [ref=e55]:
+            - img [ref=e56]
+            - paragraph [ref=e59]: http://192.168.0.113:3000/checkin?session=RE_a8IlT9g6fJQiblYmz4
+          - generic [ref=e61]:
+            - paragraph [ref=e62]: 签到率
+            - generic [ref=e63]:
+              - generic [ref=e64]: 0%
+              - generic [ref=e65]: 已签到 0 / 0 人
+        - button "结束签到" [ref=e68]

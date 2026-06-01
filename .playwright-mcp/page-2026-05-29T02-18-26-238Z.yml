@@ -1,0 +1,21 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e3]:
+      - heading "高等数学" [level=1] [ref=e4]
+      - paragraph [ref=e5]: 请在下方输入信息完成签到
+      - generic [ref=e6]:
+        - generic [ref=e7]:
+          - generic [ref=e8]: 学号
+          - textbox "学号" [ref=e9]:
+            - /placeholder: 请输入学号
+            - text: "2024002"
+        - generic [ref=e10]:
+          - generic [ref=e11]: 姓名
+          - textbox "姓名" [ref=e12]:
+            - /placeholder: 请输入姓名
+            - text: 李四
+        - generic [ref=e24]: "Debug: submitAttendance failed: Failed query: insert into \"attendance_records\" (\"id\", \"session_id\", \"student_id\", \"checked_at\") values (default, $1, $2, default) params: c1edcf61-f4dc-416b-945c-d08a9de04d52,a75afbee-c586-4de4-b668-9cc612ca6479"
+        - button "签到" [ref=e13]
+  - button "Open Next.js Dev Tools" [ref=e19] [cursor=pointer]:
+    - img [ref=e20]
+  - alert [ref=e23]

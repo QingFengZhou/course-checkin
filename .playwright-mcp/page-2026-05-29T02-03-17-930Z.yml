@@ -1,0 +1,13 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e27] [cursor=pointer]:
+    - img [ref=e28]
+  - alert [ref=e31]
+  - main [ref=e47]:
+    - generic [ref=e49]:
+      - heading "CourseCheckIn" [level=1] [ref=e50]
+      - button "退出登录" [ref=e51]
+    - generic [ref=e52]:
+      - generic [ref=e53]:
+        - heading "我的课程" [level=2] [ref=e54]
+        - button "+ 创建课程" [ref=e55]
+      - generic [ref=e56]: 暂无课程，请创建第一个课程

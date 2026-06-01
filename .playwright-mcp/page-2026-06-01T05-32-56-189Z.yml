@@ -1,0 +1,19 @@
+- generic [active] [ref=e1]:
+  - alert [ref=e22]
+  - main [ref=e41]:
+    - generic [ref=e44]:
+      - generic [ref=e45]:
+        - generic [ref=e46]: C
+        - heading "CourseCheckIn" [level=1] [ref=e47]
+      - button "退出登录" [ref=e48]
+    - generic [ref=e49]:
+      - generic [ref=e50]:
+        - heading "我的课程" [level=2] [ref=e51]
+        - paragraph [ref=e52]: 开始创建你的第一门课程
+      - generic [ref=e53]:
+        - img [ref=e55]
+        - heading "暂无课程" [level=3] [ref=e57]
+        - paragraph [ref=e58]: 点击下方按钮创建你的第一门课程
+        - button "创建课程" [ref=e59]:
+          - img [ref=e60]
+          - text: 创建课程

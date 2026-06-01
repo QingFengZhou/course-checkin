@@ -1,0 +1,11 @@
+[     121ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ https://0156789.xyz/setup:0
+[    6859ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ https://0156789.xyz/login:0
+[  334529ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ https://0156789.xyz/login:0
+[  378561ms] [ERROR] WebSocket connection to 'wss://0156789.xyz/' failed: Error during WebSocket handshake: Unexpected response code: 307 @ https://0156789.xyz/_next/static/chunks/0px2o8a_p3zw2.js:0
+[  380052ms] [ERROR] WebSocket connection to 'wss://0156789.xyz/' failed: Error during WebSocket handshake: Unexpected response code: 307 @ https://0156789.xyz/_next/static/chunks/0px2o8a_p3zw2.js:0
+[  382493ms] [ERROR] WebSocket connection to 'wss://0156789.xyz/' failed: Error during WebSocket handshake: Unexpected response code: 307 @ https://0156789.xyz/_next/static/chunks/0px2o8a_p3zw2.js:0
+[  386919ms] [ERROR] WebSocket connection to 'wss://0156789.xyz/' failed: Error during WebSocket handshake: Unexpected response code: 307 @ https://0156789.xyz/_next/static/chunks/0px2o8a_p3zw2.js:0
+[  396551ms] [ERROR] WebSocket connection to 'wss://0156789.xyz/' failed: Error during WebSocket handshake: Unexpected response code: 307 @ https://0156789.xyz/_next/static/chunks/0px2o8a_p3zw2.js:0
+[  412998ms] [ERROR] WebSocket connection to 'wss://0156789.xyz/' failed: Error during WebSocket handshake: Unexpected response code: 307 @ https://0156789.xyz/_next/static/chunks/0px2o8a_p3zw2.js:0
+[  443451ms] [ERROR] WebSocket connection to 'wss://0156789.xyz/' failed: Error during WebSocket handshake: Unexpected response code: 307 @ https://0156789.xyz/_next/static/chunks/0px2o8a_p3zw2.js:0
+[  474628ms] [ERROR] WebSocket connection to 'wss://0156789.xyz/' failed: Error during WebSocket handshake: Unexpected response code: 307 @ https://0156789.xyz/_next/static/chunks/0px2o8a_p3zw2.js:0

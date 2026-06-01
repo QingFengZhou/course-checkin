@@ -1,0 +1,20 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e27] [cursor=pointer]:
+    - img [ref=e28]
+  - alert [ref=e31]
+  - main [ref=e47]:
+    - generic [ref=e148]:
+      - heading "CourseCheckIn" [level=1] [ref=e149]
+      - button "退出登录" [ref=e150]
+    - generic [ref=e151]:
+      - generic [ref=e152]:
+        - heading "我的课程" [level=2] [ref=e153]
+        - button "+ 创建课程" [ref=e154]
+      - generic [ref=e156]:
+        - heading "高等数学" [level=3] [ref=e157]
+        - paragraph [ref=e158]: 2026 春季
+        - generic [ref=e159]: 3 名学生
+        - generic [ref=e160]:
+          - button "管理学生" [ref=e161]
+          - button "删除" [ref=e162]
+        - button "发起签到" [ref=e163]
