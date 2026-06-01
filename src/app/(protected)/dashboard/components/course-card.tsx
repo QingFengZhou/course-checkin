@@ -67,6 +67,12 @@ export default function CourseCard({ course, onDelete, onManageStudents }: Cours
 
       <div className="flex gap-2 mt-2">
         <button
+          onClick={() => router.push(`/dashboard/courses/${course.id}/history`)}
+          className="flex-1 border border-gray-400 text-gray-600 py-2 rounded-md hover:bg-gray-50 text-sm font-medium"
+        >
+          历史记录
+        </button>
+        <button
           onClick={() => onManageStudents(course)}
           className="flex-1 border border-blue-500 text-blue-500 py-2 rounded-md hover:bg-blue-50 text-sm font-medium"
         >
@@ -74,7 +80,7 @@ export default function CourseCard({ course, onDelete, onManageStudents }: Cours
         </button>
         <button
           onClick={handleDelete}
-          className="px-4 text-red-500 py-2 rounded-md hover:text-red-700 text-sm font-medium"
+          className="px-3 text-red-500 py-2 rounded-md hover:text-red-700 text-sm font-medium"
         >
           删除
         </button>
