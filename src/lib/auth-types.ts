@@ -20,7 +20,7 @@ export const AUTH_COOKIE_NAME = "cc_session" as const;
 
 export const cookieConfig = {
   httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
+  secure: process.env.NODE_ENV === "production" && !process.env.INSECURE_COOKIE,
   sameSite: "lax" as const,
   maxAge: 604800, // 7 days
   path: "/",

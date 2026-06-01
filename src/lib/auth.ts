@@ -17,12 +17,16 @@ export async function verifyToken(token: string): Promise<JwtPayload> {
   return payload as unknown as JwtPayload;
 }
 
+function isSecure(): boolean {
+  return process.env.NODE_ENV === "production" && !process.env.INSECURE_COOKIE;
+}
+
 export function setAuthCookie(response: NextResponse, token: string): void {
   response.cookies.set({
     name: AUTH_COOKIE_NAME,
     value: token,
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    secure: isSecure(),
     sameSite: "lax",
     maxAge: 604800,
     path: "/",
@@ -32,7 +36,7 @@ export function setAuthCookie(response: NextResponse, token: string): void {
 export function clearAuthCookie(response: NextResponse): void {
   response.cookies.set(AUTH_COOKIE_NAME, "", {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    secure: isSecure(),
     sameSite: "lax",
     maxAge: 0,
     path: "/",
