@@ -78,9 +78,11 @@ export default function DashboardPage() {
     router.push("/login");
   };
 
+  const totalStudents = courses.reduce((sum, c) => sum + c.studentCount, 0);
+
   if (loading) {
     return (
-      <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-blue-50">
+      <main className="min-h-screen flex items-center justify-center bg-[#f5f7fa]">
         <div className="text-center">
           <div className="animate-spin rounded-full h-10 w-10 border-[3px] border-blue-600 border-t-transparent mx-auto mb-4"></div>
           <p className="text-sm text-gray-400">加载中...</p>
@@ -90,58 +92,106 @@ export default function DashboardPage() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50/30">
-      {/* Top bar */}
-      <header className="bg-white/80 backdrop-blur-sm border-b border-gray-100 sticky top-0 z-10">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-blue-600 text-white rounded-xl flex items-center justify-center text-sm font-bold">
-              C
+    <main className="min-h-screen bg-[#f5f7fa]">
+      {/* Header */}
+      <header className="bg-white border-b border-gray-100/80 sticky top-0 z-10">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="flex items-center justify-between h-16">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-blue-700 text-white rounded-xl flex items-center justify-center text-sm font-bold shadow-sm">
+                C
+              </div>
+              <h1 className="text-lg font-bold text-gray-900 tracking-tight">
+                CourseCheckIn
+              </h1>
             </div>
-            <h1 className="text-xl font-bold text-gray-900">CourseCheckIn</h1>
+            <button
+              onClick={handleLogout}
+              className="text-sm text-gray-400 hover:text-gray-600 transition-colors px-3 py-1.5 rounded-lg hover:bg-gray-50"
+            >
+              退出登录
+            </button>
           </div>
-          <button
-            onClick={handleLogout}
-            className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
-          >
-            退出登录
-          </button>
         </div>
       </header>
 
       {/* Main content */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-xl font-semibold text-gray-800">我的课程</h2>
-          <button
-            onClick={() => setShowCreate(true)}
-            className="btn btn-primary"
-          >
-            + 创建课程
-          </button>
+        {/* Welcome + Stats */}
+        <div className="mb-10">
+          <h2 className="text-2xl font-bold text-gray-900 tracking-tight">
+            我的课程
+          </h2>
+          <p className="text-sm text-gray-400 mt-1">
+            {courses.length > 0
+              ? `共 ${courses.length} 门课程，${totalStudents} 名学生`
+              : "开始创建你的第一门课程"}
+          </p>
         </div>
 
         {error && (
-          <div className="mb-6 p-4 bg-danger-light border border-red-100 text-red-600 rounded-xl text-sm">
+          <div className="mb-6 p-4 bg-red-50 border border-red-100 text-red-600 rounded-xl text-sm">
             {error}
           </div>
         )}
 
-        {courses.length === 0 ? (
-          <div className="card p-12 text-center">
-            <p className="text-gray-400">暂无课程，请创建第一个课程</p>
+        {/* Empty state */}
+        {courses.length === 0 && !loading && (
+          <div className="max-w-md mx-auto mt-16 text-center">
+            <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center">
+              <svg className="w-8 h-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">暂无课程</h3>
+            <p className="text-sm text-gray-400 mb-8">点击下方按钮创建你的第一门课程</p>
+            <button
+              onClick={() => setShowCreate(true)}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-medium hover:from-blue-600 hover:to-blue-700 transition-all shadow-sm"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+              创建课程
+            </button>
           </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {courses.map((course) => (
-              <CourseCard
-                key={course.id}
-                course={course}
-                onDelete={handleDelete}
-                onManageStudents={handleManageStudents}
-              />
-            ))}
-          </div>
+        )}
+
+        {/* Course grid */}
+        {courses.length > 0 && (
+          <>
+            {/* Toolbar */}
+            <div className="flex items-center justify-between mb-6">
+              <p className="text-sm text-gray-400">
+                共 {courses.length} 门课程
+              </p>
+              <button
+                onClick={() => setShowCreate(true)}
+                className="inline-flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl text-sm font-medium hover:from-blue-600 hover:to-blue-700 transition-all shadow-sm"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+                创建课程
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {courses.map((course, i) => (
+                <div
+                  key={course.id}
+                  className="animate-fade-in"
+                  style={{ animationDelay: `${i * 60}ms` }}
+                >
+                  <CourseCard
+                    course={course}
+                    onDelete={handleDelete}
+                    onManageStudents={handleManageStudents}
+                  />
+                </div>
+              ))}
+            </div>
+          </>
         )}
       </div>
 
@@ -164,6 +214,17 @@ export default function DashboardPage() {
           }}
         />
       )}
+
+      {/* Entrance animation */}
+      <style jsx global>{`
+        @keyframes fade-in {
+          from { opacity: 0; transform: translateY(12px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+          animation: fade-in 0.4s ease-out both;
+        }
+      `}</style>
     </main>
   );
 }
