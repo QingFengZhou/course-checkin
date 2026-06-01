@@ -17,7 +17,7 @@ interface SessionItem {
 export default function CourseHistoryPage() {
   const params = useParams();
   const router = useRouter();
-  const courseId = params.courseId as string;
+  const courseId = params.id as string;
 
   const [sessions, setSessions] = useState<SessionItem[]>([]);
   const [totalStudents, setTotalStudents] = useState(0);

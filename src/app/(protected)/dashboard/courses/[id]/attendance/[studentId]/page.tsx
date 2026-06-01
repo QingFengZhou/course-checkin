@@ -30,7 +30,7 @@ interface StudentAttendanceData {
 export default function StudentAttendancePage() {
   const params = useParams();
   const studentId = params.studentId as string;
-  const courseId = params.courseId as string;
+  const courseId = params.id as string;
 
   const [data, setData] = useState<StudentAttendanceData | null>(null);
   const [loading, setLoading] = useState(true);

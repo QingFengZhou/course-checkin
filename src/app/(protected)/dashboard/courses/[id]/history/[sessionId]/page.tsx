@@ -34,7 +34,7 @@ interface SessionData {
 export default function SessionDetailPage() {
   const params = useParams();
   const sessionId = params.sessionId as string;
-  const courseId = params.courseId as string;
+  const courseId = params.id as string;
 
   const [data, setData] = useState<SessionData | null>(null);
   const [loading, setLoading] = useState(true);

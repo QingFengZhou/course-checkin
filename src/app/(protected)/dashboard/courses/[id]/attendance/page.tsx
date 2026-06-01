@@ -16,7 +16,7 @@ interface AttendanceStudent {
 export default function AttendanceOverviewPage() {
   const params = useParams();
   const router = useRouter();
-  const courseId = params.courseId as string;
+  const courseId = params.id as string;
 
   const [students, setStudents] = useState<AttendanceStudent[]>([]);
   const [totalSessions, setTotalSessions] = useState(0);
