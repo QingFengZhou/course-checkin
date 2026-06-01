@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { useRouter } from "next/navigation";
 
 interface Student {
   id: string;
@@ -17,6 +18,7 @@ interface StudentRosterProps {
 }
 
 export default function StudentRoster({ courseId, courseName, onClose, activeSessionId }: StudentRosterProps) {
+  const router = useRouter();
   const [students, setStudents] = useState<Student[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -233,6 +235,16 @@ export default function StudentRoster({ courseId, courseName, onClose, activeSes
                       </td>
                     )}
                     <td className="py-2 text-right">
+                      <button
+                        onClick={() =>
+                          router.push(
+                            `/dashboard/courses/${courseId}/attendance/${s.id}`,
+                          )
+                        }
+                        className="text-blue-500 hover:text-blue-700 text-sm font-medium mr-3"
+                      >
+                        考勤
+                      </button>
                       <button
                         onClick={() => handleRemove(s.id)}
                         className="text-red-500 hover:text-red-700 text-sm font-medium"
