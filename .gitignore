@@ -5,3 +5,9 @@ node_modules/
 *.db
 drizzle/meta/
 .vercel
+.playwright-mcp/
+*.png
+tsconfig.tsbuildinfo
+.next/
+out/
+
