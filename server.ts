@@ -1,5 +1,4 @@
 import { createServer } from "node:http";
-import { parse } from "node:url";
 import type { Socket } from "node:net";
 import { WebSocket } from "ws";
 import next from "next";
@@ -13,7 +12,7 @@ const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
   const server = createServer((req, res) => {
-    const parsedUrl = parse(req.url || "", true);
+    const parsedUrl = new URL(req.url || "/", `http://${req.headers.host || hostname}`);
     handle(req, res, parsedUrl);
   });
 
@@ -62,10 +61,10 @@ app.prepare().then(() => {
 
   // Handle upgrade: route WebSocket upgrades to wss, let Next.js handle dev HMR
   server.on("upgrade", (req, socket, head) => {
-    const { pathname } = parse(req.url || "", true);
+    const url = new URL(req.url || "/", `http://${req.headers.host || hostname}`);
 
     // Let Next.js dev HMR handle its own WS upgrades
-    if (pathname?.startsWith("/_next/webpack-hmr")) {
+    if (url.pathname.startsWith("/_next/webpack-hmr")) {
       return;
     }
 
