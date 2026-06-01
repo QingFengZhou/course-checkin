@@ -4,6 +4,8 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { QRCodeSVG } from "qrcode.react";
+import { useCheckinSession } from "@/lib/use-checkin-session";
+import type { AttendanceUpdatePayload } from "@/lib/ws-types";
 
 interface Course {
   id: string;
@@ -190,6 +192,36 @@ export default function CheckInPageClient({ course }: CheckInPageClientProps) {
 
     setInitialized(true);
   }, [searchParams, initialized, startCountdown]);
+
+  // WebSocket hook: real-time updates (always called — React rules of hooks)
+  const effectiveSessionId = session?.id ?? null;
+  const sessionActive = !!(session && !sessionEnded);
+  const [lastWsStatus, setLastWsStatus] = useState<"connecting" | "connected" | "disconnected">("disconnected");
+
+  const handleWsAttendanceUpdate = useCallback((payload: AttendanceUpdatePayload) => {
+    setCheckedInCount(payload.checkedInCount);
+    setTotalStudents(payload.totalStudents);
+  }, []);
+
+  const handleWsSessionEnded = useCallback(() => {
+    setSessionEnded(true);
+    stopTimers();
+  }, [stopTimers]);
+
+  const { connectionStatus } = useCheckinSession({
+    sessionId: effectiveSessionId || "",
+    onAttendanceUpdate: handleWsAttendanceUpdate,
+    onSessionEnded: handleWsSessionEnded,
+  });
+
+  // Track WS status and manage polling fallback
+  useEffect(() => {
+    setLastWsStatus(connectionStatus);
+    if (connectionStatus === "connected" && pollRef.current) {
+      clearInterval(pollRef.current);
+      pollRef.current = null;
+    }
+  }, [connectionStatus, sessionActive]);
 
   // Cleanup on unmount
   useEffect(() => {
