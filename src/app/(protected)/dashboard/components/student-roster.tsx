@@ -42,14 +42,32 @@ export default function StudentRoster({ courseId, courseName, onClose, activeSes
     }
   }, [courseId]);
 
+  const [autoSessionId, setAutoSessionId] = useState<string | null>(null);
+  const effectiveSessionId = activeSessionId ?? autoSessionId;
+
   useEffect(() => {
     fetchStudents();
   }, [fetchStudents]);
 
-  // Reset checked-in state when activeSessionId changes
+  // Auto-detect active session for this course
+  useEffect(() => {
+    if (activeSessionId) return; // Use explicit prop if provided
+    let cancelled = false;
+    fetch(`/api/courses/${courseId}/active-session`, { credentials: "include" })
+      .then((res) => res.ok ? res.json() : null)
+      .then((json) => {
+        if (!cancelled && json?.data) {
+          setAutoSessionId(json.data.sessionId);
+        }
+      })
+      .catch(() => {}); // Silently ignore - feature degrades gracefully
+    return () => { cancelled = true; };
+  }, [courseId, activeSessionId]);
+
+  // Reset checked-in state when effectiveSessionId changes
   useEffect(() => {
     setCheckedInIds(new Set());
-  }, [activeSessionId]);
+  }, [effectiveSessionId]);
 
   const handleAdd = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -97,13 +115,13 @@ export default function StudentRoster({ courseId, courseName, onClose, activeSes
   };
 
   const handleManualCheckIn = async (studentDbId: string) => {
-    if (!activeSessionId) return;
+    if (!effectiveSessionId) return;
 
     setCheckingInId(studentDbId);
     setError("");
 
     try {
-      const res = await fetch(`/api/sessions/${activeSessionId}/manual-checkin`, {
+      const res = await fetch(`/api/sessions/${effectiveSessionId}/manual-checkin`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ studentId: studentDbId }),
@@ -182,7 +200,7 @@ export default function StudentRoster({ courseId, courseName, onClose, activeSes
               <tr className="border-b border-gray-200">
                 <th className="text-left py-2 text-gray-600 font-medium">学号</th>
                 <th className="text-left py-2 text-gray-600 font-medium">姓名</th>
-                {activeSessionId && (
+                {effectiveSessionId && (
                   <th className="text-center py-2 text-gray-600 font-medium">签到</th>
                 )}
                 <th className="text-right py-2 text-gray-600 font-medium">操作</th>
@@ -197,7 +215,7 @@ export default function StudentRoster({ courseId, courseName, onClose, activeSes
                   <tr key={s.id} className="border-b border-gray-100">
                     <td className="py-2">{s.studentId}</td>
                     <td className="py-2">{s.name}</td>
-                    {activeSessionId && (
+                    {effectiveSessionId && (
                       <td className="py-2 text-center">
                         {isCheckedIn ? (
                           <span className="text-green-500 text-sm font-medium">

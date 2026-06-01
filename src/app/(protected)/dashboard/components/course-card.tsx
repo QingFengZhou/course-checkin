@@ -80,15 +80,13 @@ export default function CourseCard({ course, onDelete, onManageStudents }: Cours
         </button>
       </div>
 
-      {course.studentCount > 0 && (
-        <button
-          onClick={handleStartCheckin}
-          disabled={startingCheckin}
-          className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed text-sm font-medium"
-        >
-          {startingCheckin ? "发起中..." : "发起签到"}
-        </button>
-      )}
+      <button
+        onClick={handleStartCheckin}
+        disabled={startingCheckin}
+        className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed text-sm font-medium"
+      >
+        {startingCheckin ? "发起中..." : "发起签到"}
+      </button>
     </div>
   );
 }

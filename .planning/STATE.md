@@ -20,22 +20,22 @@ progress:
 See: .planning/PROJECT.md (updated 2026-05-25)
 
 **Core value:** 100-300 人同时扫码签到时稳定流畅，老师能实时看到签到进度和明细。
-**Current focus:** Phase 1 - Foundation + Auth (ready to plan)
+**Current focus:** Phase 4 - Real-Time Dashboard (ready to discuss)
 
 ## Current Position
 
-Phase: 3 of 5 (Check-In System)
-Plan: 4 of 4 — Wave 2 of 3 (03-03: Teacher UI) complete
-Status: Ready to execute
-Last activity: 2026-05-25
+Phase: 3 of 5 (Check-In System) — COMPLETE
+Plan: 4 of 4 — All waves complete
+Status: Phase 3 complete — ready for verification
+Last activity: 2026-05-26
 
-Progress: [██████████] 100%
+Progress: [████████░░] 60% (3/5 phases, 11/11 plans complete)
 
-### Wave Plan
-
-- **Wave 1** (complete): 03-01 (schema + service layer)
-- **Wave 2** (complete): 03-02 (API routes) + 03-03 (teacher UI) — parallel
-- **Wave 3** (active): 03-04 (student UI)
+### Phase 3 Summary
+- **Wave 1** (done): 03-01 (schema + service layer) — 2 tables, 5 service functions
+- **Wave 2** (done): 03-02 (API routes) + 03-03 (teacher UI) — 5 endpoints, QR page, manual check-in
+- **Wave 3** (done): 03-04 (student UI) — check-in form + success page
+- TypeScript: 0 errors, ~2761 lines of source code
 
 ## Performance Metrics
 

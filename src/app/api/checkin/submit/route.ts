@@ -24,7 +24,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const [student] = await db
+    // Find or auto-register student in this course
+    let [student] = await db
       .select()
       .from(students)
       .where(
@@ -37,10 +38,20 @@ export async function POST(request: NextRequest) {
       .limit(1);
 
     if (!student) {
-      return NextResponse.json(
-        { error: "未找到该学生，请确认学号和姓名" },
-        { status: 400 },
-      );
+      // Auto-register student in the course on first check-in
+      const [created] = await db
+        .insert(students)
+        .values({
+          studentId: parsed.data.studentId,
+          name: parsed.data.name,
+          courseId: session.courseId,
+        })
+        .onConflictDoUpdate({
+          target: [students.courseId, students.studentId],
+          set: { name: parsed.data.name, updatedAt: new Date() },
+        })
+        .returning();
+      student = created;
     }
 
     const result = await submitAttendance(session.id, student.id);

@@ -198,9 +198,13 @@ export default function CheckInPageClient({ course }: CheckInPageClientProps) {
     };
   }, [stopTimers]);
 
+  const baseUrl =
+    typeof window !== "undefined"
+      ? (process.env.NEXT_PUBLIC_BASE_URL || window.location.origin)
+      : process.env.NEXT_PUBLIC_BASE_URL || "";
   const qrUrl =
     session && !sessionEnded
-      ? `${typeof window !== "undefined" ? window.location.origin : ""}/checkin?session=${session.token}`
+      ? `${baseUrl}/checkin?session=${session.token}`
       : "";
 
   // State 3: Expired or teacher-ended

@@ -69,13 +69,22 @@ export async function submitAttendance(sessionId: string, studentId: string) {
     });
     return { success: true } as const;
   } catch (error: unknown) {
-    if (
-      error !== null &&
-      typeof error === "object" &&
-      "code" in error &&
-      (error as Record<string, unknown>).code === "23505"
-    ) {
-      return { error: "already checked in" } as const;
+    if (error !== null && typeof error === "object") {
+      const err = error as Record<string, unknown>;
+      const cause = err.cause as Record<string, unknown> | undefined;
+      // Drizzle wraps postgres errors under .cause
+      if (cause && (cause.code === "23505" || cause.code === 23505)) {
+        return { error: "already checked in" } as const;
+      }
+      // Also check top-level (raw postgres-js)
+      if (err.code === "23505" || err.code === 23505) {
+        return { error: "already checked in" } as const;
+      }
+      // Fallback: check message for duplicate key pattern
+      const msg = String(err.message || "");
+      if (msg.includes("duplicate key") || msg.includes("23505")) {
+        return { error: "already checked in" } as const;
+      }
     }
     throw error;
   }
