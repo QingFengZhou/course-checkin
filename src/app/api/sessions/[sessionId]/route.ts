@@ -3,7 +3,7 @@ import { db } from "@/db";
 import { checkInSessions, attendanceRecords } from "@/db/schema/checkin";
 import { courses } from "@/db/schema/courses";
 import { students } from "@/db/schema/students";
-import { eq, and, count } from "drizzle-orm";
+import { eq, and, count, notInArray } from "drizzle-orm";
 import { getAuthSession } from "@/lib/auth";
 import { endSession } from "@/lib/checkin-service";
 
@@ -57,6 +57,46 @@ export async function GET(
       .from(students)
       .where(eq(students.courseId, row.courseId));
 
+    // Fetch checked-in students
+    const checkedInStudents = await db
+      .select({
+        id: students.id,
+        studentId: students.studentId,
+        name: students.name,
+        checkedAt: attendanceRecords.checkedAt,
+      })
+      .from(attendanceRecords)
+      .innerJoin(students, eq(attendanceRecords.studentId, students.id))
+      .where(eq(attendanceRecords.sessionId, sessionId))
+      .orderBy(attendanceRecords.checkedAt);
+
+    // Fetch absent students (enrolled but not checked in for this session)
+    const checkedInIds = checkedInStudents.map((s) => s.id);
+    const absentStudents = checkedInIds.length > 0
+      ? await db
+          .select({
+            id: students.id,
+            studentId: students.studentId,
+            name: students.name,
+          })
+          .from(students)
+          .where(
+            and(
+              eq(students.courseId, row.courseId),
+              notInArray(students.id, checkedInIds),
+            ),
+          )
+          .orderBy(students.studentId)
+      : await db
+          .select({
+            id: students.id,
+            studentId: students.studentId,
+            name: students.name,
+          })
+          .from(students)
+          .where(eq(students.courseId, row.courseId))
+          .orderBy(students.studentId);
+
     return NextResponse.json({
       data: {
         session: {
@@ -69,6 +109,8 @@ export async function GET(
         },
         checkedInCount: countRow?.value ?? 0,
         totalStudents: totalRow?.value ?? 0,
+        checkedInStudents,
+        absentStudents,
       },
     });
   } catch {

@@ -34,8 +34,15 @@ export default function CheckInPageClient({ course }: CheckInPageClientProps) {
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
   const [checkedInCount, setCheckedInCount] = useState(0);
   const [totalStudents, setTotalStudents] = useState(0);
+  const [checkedInStudents, setCheckedInStudents] = useState<
+    { id: string; studentId: string; name: string; checkedAt: string }[]
+  >([]);
+  const [absentStudents, setAbsentStudents] = useState<
+    { id: string; studentId: string; name: string }[]
+  >([]);
   const [sessionEnded, setSessionEnded] = useState(false);
   const [initialized, setInitialized] = useState(false);
+  const [highlightId, setHighlightId] = useState<string | null>(null);
 
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -67,6 +74,8 @@ export default function CheckInPageClient({ course }: CheckInPageClientProps) {
       if (json.data) {
         setCheckedInCount(json.data.checkedInCount);
         setTotalStudents(json.data.totalStudents);
+        setCheckedInStudents(json.data.checkedInStudents ?? []);
+        setAbsentStudents(json.data.absentStudents ?? []);
         if (json.data.session.status !== "active") {
           setSessionEnded(true);
           stopTimers();
@@ -201,6 +210,11 @@ export default function CheckInPageClient({ course }: CheckInPageClientProps) {
   const handleWsAttendanceUpdate = useCallback((payload: AttendanceUpdatePayload) => {
     setCheckedInCount(payload.checkedInCount);
     setTotalStudents(payload.totalStudents);
+    if (payload.newCheckIn) {
+      // Highlight the newly checked-in student
+      setHighlightId(payload.newCheckIn.studentId);
+      setTimeout(() => setHighlightId(null), 3000);
+    }
   }, []);
 
   const handleWsSessionEnded = useCallback(() => {
@@ -348,19 +362,143 @@ export default function CheckInPageClient({ course }: CheckInPageClientProps) {
                 </p>
               </div>
 
-              {/* Status panel */}
+              {/* Real-time Dashboard */}
               <div className="flex-1 min-w-0">
-                <div className="mb-4">
-                  <p className="text-sm text-gray-500">签到统计</p>
-                  <p className="text-lg font-semibold text-gray-900">
-                    已签到 {checkedInCount} / {totalStudents} 人
-                  </p>
-                  {checkedInCount === 0 && (
-                    <p className="text-xs text-gray-400 mt-1">
+                {/* Attendance Rate */}
+                <div className="mb-6">
+                  <p className="text-sm text-gray-500 mb-1">签到率</p>
+                  <div className="flex items-baseline gap-2">
+                    <span
+                      className={`text-4xl font-bold ${
+                        totalStudents === 0
+                          ? "text-gray-400"
+                          : checkedInCount / totalStudents >= 0.8
+                            ? "text-green-600"
+                            : checkedInCount / totalStudents >= 0.5
+                              ? "text-yellow-600"
+                              : "text-red-600"
+                      }`}
+                    >
+                      {totalStudents > 0
+                        ? `${Math.round((checkedInCount / totalStudents) * 100)}%`
+                        : "0%"}
+                    </span>
+                    <span className="text-lg text-gray-700">
+                      已签到 {checkedInCount} / {totalStudents} 人
+                    </span>
+                  </div>
+                  {/* Progress bar */}
+                  <div className="w-full bg-gray-200 rounded-full h-3 mt-2">
+                    <div
+                      className={`h-3 rounded-full transition-all duration-500 ${
+                        totalStudents === 0
+                          ? "bg-gray-300"
+                          : checkedInCount / totalStudents >= 0.8
+                            ? "bg-green-500"
+                            : checkedInCount / totalStudents >= 0.5
+                              ? "bg-yellow-500"
+                              : "bg-red-500"
+                      }`}
+                      style={{
+                        width: `${
+                          totalStudents > 0
+                            ? (checkedInCount / totalStudents) * 100
+                            : 0
+                        }%`,
+                      }}
+                    />
+                  </div>
+                  {checkedInCount === 0 && totalStudents > 0 && (
+                    <p className="text-xs text-gray-400 mt-2">
                       等待学生签到...
                     </p>
                   )}
                 </div>
+
+                {/* Student Lists */}
+                {totalStudents > 0 && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* Checked-in list */}
+                    <div>
+                      <p className="text-sm font-medium text-green-700 mb-2">
+                        已签到 ({checkedInStudents.length})
+                      </p>
+                      <div className="max-h-48 overflow-y-auto border border-green-200 rounded-md bg-green-50">
+                        {checkedInStudents.length === 0 ? (
+                          <p className="text-xs text-gray-400 p-3">暂无</p>
+                        ) : (
+                          <table className="w-full text-xs">
+                            <thead>
+                              <tr className="border-b border-green-200">
+                                <th className="text-left p-2 text-green-700 font-medium">
+                                  学号
+                                </th>
+                                <th className="text-left p-2 text-green-700 font-medium">
+                                  姓名
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {checkedInStudents.map((s) => (
+                                <tr
+                                  key={s.id}
+                                  className={`border-b border-green-100 transition-all duration-700 ${
+                                    highlightId === s.studentId
+                                      ? "bg-green-200 animate-pulse"
+                                      : ""
+                                  }`}
+                                >
+                                  <td className="p-2">{s.studentId}</td>
+                                  <td className="p-2">{s.name}</td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Absent list */}
+                    <div>
+                      <p className="text-sm font-medium text-gray-500 mb-2">
+                        未签到 ({absentStudents.length})
+                      </p>
+                      <div className="max-h-48 overflow-y-auto border border-gray-200 rounded-md bg-gray-50">
+                        {absentStudents.length === 0 ? (
+                          <p className="text-xs text-green-600 p-3">全部已签到</p>
+                        ) : (
+                          <table className="w-full text-xs">
+                            <thead>
+                              <tr className="border-b border-gray-200">
+                                <th className="text-left p-2 text-gray-500 font-medium">
+                                  学号
+                                </th>
+                                <th className="text-left p-2 text-gray-500 font-medium">
+                                  姓名
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {absentStudents.map((s) => (
+                                <tr
+                                  key={s.id}
+                                  className="border-b border-gray-100"
+                                >
+                                  <td className="p-2 text-gray-500">
+                                    {s.studentId}
+                                  </td>
+                                  <td className="p-2 text-gray-500">
+                                    {s.name}
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
