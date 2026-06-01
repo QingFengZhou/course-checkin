@@ -40,7 +40,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const result = await createSession(parsed.data.courseId, session.user.id);
+    const result = await createSession(
+      parsed.data.courseId,
+      session.user.id,
+      parsed.data.durationMinutes,
+    );
 
     return NextResponse.json(
       {

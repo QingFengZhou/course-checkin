@@ -31,6 +31,7 @@ export default function CheckInPageClient({ course }: CheckInPageClientProps) {
   const [session, setSession] = useState<SessionInfo | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [durationMinutes, setDurationMinutes] = useState(5);
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
   const [checkedInCount, setCheckedInCount] = useState(0);
   const [totalStudents, setTotalStudents] = useState(0);
@@ -127,7 +128,7 @@ export default function CheckInPageClient({ course }: CheckInPageClientProps) {
       const res = await fetch("/api/sessions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ courseId: course.id }),
+        body: JSON.stringify({ courseId: course.id, durationMinutes }),
         credentials: "include",
       });
 
@@ -339,7 +340,22 @@ export default function CheckInPageClient({ course }: CheckInPageClientProps) {
             <h2 className="text-lg font-semibold text-gray-900 mb-2">
               {course.name}
             </h2>
-            <p className="text-sm text-gray-500 mb-6">{course.semester}</p>
+            <p className="text-sm text-gray-500 mb-4">{course.semester}</p>
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <label className="text-sm text-gray-600">签到时长:</label>
+              <select
+                value={durationMinutes}
+                onChange={(e) => setDurationMinutes(Number(e.target.value))}
+                className="border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-600 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value={1}>1 分钟</option>
+                <option value={2}>2 分钟</option>
+                <option value={5}>5 分钟</option>
+                <option value={10}>10 分钟</option>
+                <option value={15}>15 分钟</option>
+                <option value={30}>30 分钟</option>
+              </select>
+            </div>
             <button
               onClick={handleStartSession}
               disabled={loading}

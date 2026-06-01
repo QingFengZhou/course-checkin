@@ -5,8 +5,8 @@ import { checkInSessions, attendanceRecords } from "@/db/schema/checkin";
 import { students } from "@/db/schema/students";
 import type { SelectCheckInSession } from "@/db/schema/checkin";
 
-/** Session lifetime: 5 minutes (D-3.01) */
-const SESSION_DURATION_MS = 5 * 60 * 1000;
+/** Default session lifetime: 5 minutes */
+const DEFAULT_DURATION_MINUTES = 5;
 
 /**
  * Create a new check-in session for a course.
@@ -14,9 +14,14 @@ const SESSION_DURATION_MS = 5 * 60 * 1000;
  * teacherId is accepted for the API layer to verify ownership before
  * calling this function (ownership check done at API level per D-3.05).
  */
-export async function createSession(courseId: string, teacherId: string) {
+export async function createSession(
+  courseId: string,
+  teacherId: string,
+  durationMinutes: number = DEFAULT_DURATION_MINUTES,
+) {
   const token = nanoid();
-  const expiresAt = new Date(Date.now() + SESSION_DURATION_MS);
+  const durationMs = durationMinutes * 60 * 1000;
+  const expiresAt = new Date(Date.now() + durationMs);
 
   const [session] = await db
     .insert(checkInSessions)

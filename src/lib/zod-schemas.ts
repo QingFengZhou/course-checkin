@@ -27,6 +27,7 @@ export const enrollStudentSchema = z.object({
 
 export const createSessionSchema = z.object({
   courseId: z.string().uuid("Invalid course ID"),
+  durationMinutes: z.number().int().min(1).max(60).optional().default(5),
 });
 
 export const submitAttendanceSchema = z.object({

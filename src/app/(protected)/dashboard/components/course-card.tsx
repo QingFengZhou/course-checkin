@@ -14,6 +14,8 @@ export default function CourseCard({ course, onDelete, onManageStudents }: Cours
   const router = useRouter();
   const [startingCheckin, setStartingCheckin] = useState(false);
   const [checkinError, setCheckinError] = useState("");
+  const [durationMinutes, setDurationMinutes] = useState(5);
+  const [showDurationPicker, setShowDurationPicker] = useState(false);
 
   const handleDelete = async () => {
     const confirmed = window.confirm(
@@ -32,7 +34,7 @@ export default function CourseCard({ course, onDelete, onManageStudents }: Cours
       const res = await fetch("/api/sessions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ courseId: course.id }),
+        body: JSON.stringify({ courseId: course.id, durationMinutes }),
         credentials: "include",
       });
 
@@ -92,13 +94,28 @@ export default function CourseCard({ course, onDelete, onManageStudents }: Cours
         </button>
       </div>
 
-      <button
-        onClick={handleStartCheckin}
-        disabled={startingCheckin}
-        className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed text-sm font-medium"
-      >
-        {startingCheckin ? "发起中..." : "发起签到"}
-      </button>
+      {/* Duration + Start */}
+      <div className="flex gap-2 items-center">
+        <select
+          value={durationMinutes}
+          onChange={(e) => setDurationMinutes(Number(e.target.value))}
+          className="border border-gray-300 rounded-md px-2 py-2 text-sm text-gray-600 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option value={1}>1 分钟</option>
+          <option value={2}>2 分钟</option>
+          <option value={5}>5 分钟</option>
+          <option value={10}>10 分钟</option>
+          <option value={15}>15 分钟</option>
+          <option value={30}>30 分钟</option>
+        </select>
+        <button
+          onClick={handleStartCheckin}
+          disabled={startingCheckin}
+          className="flex-1 bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed text-sm font-medium"
+        >
+          {startingCheckin ? "发起中..." : "发起签到"}
+        </button>
+      </div>
     </div>
   );
 }
