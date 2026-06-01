@@ -29,6 +29,7 @@ services:
       DATABASE_URL: postgresql://coursecheckin:coursecheckin@postgres:5432/coursecheckin
       JWT_SECRET: change-this-to-a-random-string-at-least-32-chars
       NODE_ENV: production
+      INSECURE_COOKIE: "true"
       NEXT_PUBLIC_BASE_URL: http://124.222.63.25:3000
     depends_on:
       postgres:
