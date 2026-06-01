@@ -91,8 +91,8 @@ export default function CourseHistoryPage() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm">
+    <main className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50/30">
+      <header className="bg-white/80 backdrop-blur-sm border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
           <Link
             href="/dashboard"
@@ -109,7 +109,7 @@ export default function CourseHistoryPage() {
 
       <div className="max-w-4xl mx-auto px-4 py-8">
         {error && (
-          <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-md text-sm">
+          <div className="mb-4 p-4 bg-red-50 border border-red-100 text-red-600 rounded-xl text-sm">
             {error}
             <button
               onClick={fetchSessions}
@@ -125,7 +125,7 @@ export default function CourseHistoryPage() {
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500" />
           </div>
         ) : sessions.length === 0 ? (
-          <div className="bg-white rounded-lg shadow-md p-8 text-center">
+          <div className="bg-white rounded-xl p-8 text-center">
             <p className="text-gray-500">暂无签到记录</p>
           </div>
         ) : (
@@ -143,7 +143,7 @@ export default function CourseHistoryPage() {
                       `/dashboard/courses/${courseId}/history/${s.id}`,
                     )
                   }
-                  className="w-full bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow text-left"
+                  className="w-full rounded-xl px-4 py-3 hover:shadow-md transition-all text-left border border-gray-100 hover:border-blue-100"
                 >
                   <div className="flex items-center justify-between">
                     <div>

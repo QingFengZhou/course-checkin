@@ -96,8 +96,8 @@ export default function AttendanceOverviewPage() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm">
+    <main className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50/30">
+      <header className="bg-white/80 backdrop-blur-sm border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
           <Link
             href="/dashboard"
@@ -114,7 +114,7 @@ export default function AttendanceOverviewPage() {
 
       <div className="max-w-6xl mx-auto px-4 py-8">
         {totalSessions === 0 && !loading ? (
-          <div className="bg-white rounded-lg shadow-md p-8 text-center">
+          <div className="rounded-xl p-8 text-center">
             <p className="text-gray-500">
               暂无签到记录，签到后才会有出勤数据
             </p>
@@ -134,12 +134,12 @@ export default function AttendanceOverviewPage() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="搜索学号或姓名..."
-                className="w-full max-w-xs px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full max-w-xs input-base max-w-xs"
               />
             </div>
 
             {error && (
-              <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-md text-sm">
+              <div className="mb-4 p-4 bg-red-50 border border-red-100 text-red-600 rounded-xl text-sm">
                 {error}
                 <button
                   onClick={fetchData}
@@ -155,7 +155,7 @@ export default function AttendanceOverviewPage() {
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500" />
               </div>
             ) : (
-              <div className="bg-white rounded-lg shadow-md overflow-x-auto">
+              <div className="rounded-xl overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-gray-200 bg-gray-50">

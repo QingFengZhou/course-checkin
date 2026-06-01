@@ -80,7 +80,7 @@ export default function StudentAttendancePage() {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <main className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50/30 flex items-center justify-center">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500" />
       </main>
     );
@@ -88,9 +88,9 @@ export default function StudentAttendancePage() {
 
   if (error) {
     return (
-      <main className="min-h-screen bg-gray-50">
+      <main className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50/30">
         <div className="max-w-4xl mx-auto px-4 py-8">
-          <div className="p-3 bg-red-50 border border-red-200 text-red-700 rounded-md text-sm">
+          <div className="p-4 bg-red-50 border border-red-100 text-red-600 rounded-xl text-sm">
             {error}
             <button
               onClick={fetchData}
@@ -111,8 +111,8 @@ export default function StudentAttendancePage() {
   const absentRecords = records.filter((r) => !r.isPresent);
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm">
+    <main className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50/30">
+      <header className="bg-white/80 backdrop-blur-sm border-b border-gray-100">
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
           <Link
             href={`/dashboard/courses/${courseId}/attendance`}
@@ -129,7 +129,7 @@ export default function StudentAttendancePage() {
 
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Student info + summary */}
-        <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+        <div className="rounded-xl p-6 mb-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
             <div>
               <p className="text-xs text-gray-400">学号</p>
@@ -178,7 +178,7 @@ export default function StudentAttendancePage() {
         </div>
 
         {/* Timeline */}
-        <div className="bg-white rounded-lg shadow-md p-6">
+        <div className="rounded-xl p-6">
           <p className="text-sm font-medium text-gray-700 mb-4">
             签到记录 ({records.length})
           </p>

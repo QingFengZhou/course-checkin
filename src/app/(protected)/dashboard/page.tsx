@@ -80,24 +80,29 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <main className="min-h-screen flex items-center justify-center bg-gray-50">
+      <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-blue-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-500">加载中...</p>
+          <div className="animate-spin rounded-full h-10 w-10 border-[3px] border-blue-600 border-t-transparent mx-auto mb-4"></div>
+          <p className="text-sm text-gray-400">加载中...</p>
         </div>
       </main>
     );
   }
 
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50/30">
       {/* Top bar */}
-      <header className="bg-white shadow-sm">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-gray-900">CourseCheckIn</h1>
+      <header className="bg-white/80 backdrop-blur-sm border-b border-gray-100 sticky top-0 z-10">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 bg-blue-600 text-white rounded-xl flex items-center justify-center text-sm font-bold">
+              C
+            </div>
+            <h1 className="text-xl font-bold text-gray-900">CourseCheckIn</h1>
+          </div>
           <button
             onClick={handleLogout}
-            className="text-sm text-gray-600 hover:text-gray-900"
+            className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
           >
             退出登录
           </button>
@@ -105,29 +110,29 @@ export default function DashboardPage() {
       </header>
 
       {/* Main content */}
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        <div className="flex items-center justify-between mb-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+        <div className="flex items-center justify-between mb-8">
           <h2 className="text-xl font-semibold text-gray-800">我的课程</h2>
           <button
             onClick={() => setShowCreate(true)}
-            className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 text-sm font-medium"
+            className="btn btn-primary"
           >
             + 创建课程
           </button>
         </div>
 
         {error && (
-          <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-md text-sm">
+          <div className="mb-6 p-4 bg-danger-light border border-red-100 text-red-600 rounded-xl text-sm">
             {error}
           </div>
         )}
 
         {courses.length === 0 ? (
-          <div className="text-center py-12 text-gray-500">
-            暂无课程，请创建第一个课程
+          <div className="card p-12 text-center">
+            <p className="text-gray-400">暂无课程，请创建第一个课程</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {courses.map((course) => (
               <CourseCard
                 key={course.id}

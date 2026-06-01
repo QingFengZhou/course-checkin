@@ -112,7 +112,7 @@ export default function CheckinLandingContent() {
   // Loading state
   if (loading) {
     return (
-      <main className="min-h-screen flex items-center justify-center bg-gray-50">
+      <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-blue-50">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500" />
       </main>
     );
@@ -121,8 +121,8 @@ export default function CheckinLandingContent() {
   // Fetch error (session invalid/expired)
   if (fetchError) {
     return (
-      <main className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
-        <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md text-center">
+      <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-blue-50 p-4">
+        <div className="bg-white p-8 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.06)] w-full max-w-sm text-center">
           <p className="text-gray-500 text-sm">{fetchError}</p>
         </div>
       </main>
@@ -132,9 +132,9 @@ export default function CheckinLandingContent() {
   // Already checked in
   if (alreadyCheckedIn) {
     return (
-      <main className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
-        <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md text-center">
-          <div className="w-16 h-16 rounded-full bg-green-500 flex items-center justify-center mx-auto mb-4">
+      <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-blue-50 p-4">
+        <div className="bg-white p-8 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.06)] w-full max-w-sm text-center">
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center mx-auto mb-4">
             <span className="text-white text-3xl leading-none">&#10003;</span>
           </div>
           <p className="text-gray-700 text-sm">你已签到，无需重复提交</p>
@@ -145,8 +145,8 @@ export default function CheckinLandingContent() {
 
   // Form
   return (
-    <main className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
-      <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
+    <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-blue-50 p-4">
+      <div className="bg-white p-8 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.06)] w-full max-w-sm">
         <h1 className="text-2xl font-semibold text-center mb-1 text-gray-900">
           {courseName}
         </h1>
@@ -167,7 +167,7 @@ export default function CheckinLandingContent() {
               type="text"
               value={studentId}
               onChange={(e) => setStudentId(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 input-base"
               placeholder="请输入学号"
               required
             />
@@ -184,7 +184,7 @@ export default function CheckinLandingContent() {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 input-base"
               placeholder="请输入姓名"
               required
             />

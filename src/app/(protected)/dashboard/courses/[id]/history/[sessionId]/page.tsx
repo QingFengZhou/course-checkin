@@ -84,7 +84,7 @@ export default function SessionDetailPage() {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <main className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50/30 flex items-center justify-center">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500" />
       </main>
     );
@@ -92,9 +92,9 @@ export default function SessionDetailPage() {
 
   if (error) {
     return (
-      <main className="min-h-screen bg-gray-50">
+      <main className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50/30">
         <div className="max-w-4xl mx-auto px-4 py-8">
-          <div className="p-3 bg-red-50 border border-red-200 text-red-700 rounded-md text-sm">
+          <div className="p-4 bg-red-50 border border-red-100 text-red-600 rounded-xl text-sm">
             {error}
             <button
               onClick={fetchDetail}
@@ -116,8 +116,8 @@ export default function SessionDetailPage() {
       : 0;
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm">
+    <main className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50/30">
+      <header className="bg-white/80 backdrop-blur-sm border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
           <Link
             href={`/dashboard/courses/${courseId}/history`}
@@ -132,7 +132,7 @@ export default function SessionDetailPage() {
 
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Session Info */}
-        <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+        <div className="rounded-xl p-6 mb-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div>
               <p className="text-xs text-gray-400">签到时间</p>
@@ -158,7 +158,7 @@ export default function SessionDetailPage() {
         </div>
 
         {/* Attendance Rate */}
-        <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+        <div className="rounded-xl p-6 mb-6">
           <p className="text-sm text-gray-500 mb-2">签到率</p>
           <div className="flex items-baseline gap-3">
             <span className={`text-4xl font-bold ${getRateColor(rate)}`}>
@@ -179,7 +179,7 @@ export default function SessionDetailPage() {
         {/* Student Lists */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Checked-in */}
-          <div className="bg-white rounded-lg shadow-md p-4">
+          <div className="rounded-xl p-4">
             <p className="text-sm font-medium text-green-700 mb-3">
               已签到 ({data.checkedInStudents.length})
             </p>
@@ -211,7 +211,7 @@ export default function SessionDetailPage() {
           </div>
 
           {/* Absent */}
-          <div className="bg-white rounded-lg shadow-md p-4">
+          <div className="rounded-xl p-4">
             <p className="text-sm font-medium text-gray-500 mb-3">
               未签到 ({data.absentStudents.length})
             </p>

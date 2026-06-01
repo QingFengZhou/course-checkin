@@ -84,82 +84,86 @@ export default function CourseCard({ course, onDelete, onManageStudents }: Cours
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 flex flex-col gap-3">
-      <h3 className="font-bold text-lg text-gray-900">{course.name}</h3>
-      <p className="text-sm text-gray-500">{course.semester}</p>
-      <div className="inline-flex items-center bg-blue-50 text-blue-700 text-xs font-medium px-2.5 py-1 rounded-full self-start">
-        {course.studentCount} 名学生
+    <div className="card p-5 flex flex-col gap-4">
+      {/* Course name + badge */}
+      <div>
+        <h3 className="font-semibold text-gray-900 text-base">{course.name}</h3>
+        <div className="flex items-center gap-2 mt-1">
+          <p className="text-xs text-gray-400">{course.semester}</p>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-600">
+            {course.studentCount} 名学生
+          </span>
+        </div>
       </div>
 
-      <div className="flex flex-wrap gap-2 mt-2">
+      {checkinError && (
+        <p className="text-xs text-red-500">{checkinError}</p>
+      )}
+
+      {/* Buttons row */}
+      <div className="flex flex-wrap gap-2">
         <button
           onClick={() => router.push(`/dashboard/courses/${course.id}/attendance`)}
-          className="flex-1 min-w-[80px] border border-green-400 text-green-600 py-2 rounded-md hover:bg-green-50 text-sm font-medium"
+          className="flex-1 min-w-[70px] px-3 py-2 rounded-lg border border-gray-200 text-gray-500 text-xs font-medium hover:border-green-400 hover:text-green-600 hover:bg-green-50/50 transition-all"
         >
           考勤总览
         </button>
         <button
           onClick={() => router.push(`/dashboard/courses/${course.id}/history`)}
-          className="flex-1 min-w-[80px] border border-gray-400 text-gray-600 py-2 rounded-md hover:bg-gray-50 text-sm font-medium"
+          className="flex-1 min-w-[70px] px-3 py-2 rounded-lg border border-gray-200 text-gray-500 text-xs font-medium hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50/50 transition-all"
         >
           历史记录
         </button>
         <button
           onClick={() => onManageStudents(course)}
-          className="flex-1 min-w-[80px] border border-blue-500 text-blue-500 py-2 rounded-md hover:bg-blue-50 text-sm font-medium"
+          className="flex-1 min-w-[70px] px-3 py-2 rounded-lg border border-gray-200 text-gray-500 text-xs font-medium hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50/50 transition-all"
         >
           管理学生
         </button>
         <button
           onClick={handleDelete}
-          className="text-red-500 py-2 rounded-md hover:text-red-700 text-sm font-medium px-2"
+          className="px-2 py-2 rounded-lg text-gray-300 hover:text-red-500 transition-colors text-xs"
         >
           删除
         </button>
       </div>
 
+      {/* Active session / Start check-in */}
       {activeSession ? (
-        /* Active session exists — show "查看签到码" */
         <button
           onClick={() =>
             router.push(
               `/checkin/${course.id}?session=${activeSession.token}&sessionId=${activeSession.sessionId}&expiresAt=${encodeURIComponent(activeSession.expiresAt)}`,
             )
           }
-          className="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 text-sm font-medium"
+          className="w-full py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 text-white text-sm font-medium hover:from-emerald-600 hover:to-emerald-700 transition-all shadow-sm"
         >
           查看签到码
         </button>
       ) : (
-        <>
-          {checkinError && (
-            <p className="text-xs text-red-500">{checkinError}</p>
-          )}
-          {/* Duration + Start */}
-          {!checkingActive && (
-            <div className="flex gap-2 items-center">
-              <select
-                value={durationMinutes}
-                onChange={(e) => setDurationMinutes(Number(e.target.value))}
-                className="border border-gray-300 rounded-md px-2 py-2 text-sm text-gray-600 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                <option value={1}>1 分钟</option>
-                <option value={2}>2 分钟</option>
-                <option value={5}>5 分钟</option>
-                <option value={10}>10 分钟</option>
-                <option value={15}>15 分钟</option>
-                <option value={30}>30 分钟</option>
-              </select>
-              <button
-                onClick={handleStartCheckin}
-                disabled={startingCheckin}
-                className="flex-1 bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed text-sm font-medium"
-              >
-                {startingCheckin ? "发起中..." : "发起签到"}
-              </button>
-            </div>
-          )}
-        </>
+        !checkingActive && (
+          <div className="flex gap-2 items-center">
+            <select
+              value={durationMinutes}
+              onChange={(e) => setDurationMinutes(Number(e.target.value))}
+              className="flex-shrink-0 border border-gray-200 rounded-lg px-3 py-2.5 text-sm text-gray-500 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+            >
+              <option value={1}>1 分钟</option>
+              <option value={2}>2 分钟</option>
+              <option value={5}>5 分钟</option>
+              <option value={10}>10 分钟</option>
+              <option value={15}>15 分钟</option>
+              <option value={30}>30 分钟</option>
+            </select>
+            <button
+              onClick={handleStartCheckin}
+              disabled={startingCheckin}
+              className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 text-white text-sm font-medium hover:from-blue-600 hover:to-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm"
+            >
+              {startingCheckin ? "发起中..." : "发起签到"}
+            </button>
+          </div>
+        )
       )}
     </div>
   );

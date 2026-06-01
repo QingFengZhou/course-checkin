@@ -289,8 +289,8 @@ export default function CheckInPageClient({ course }: CheckInPageClientProps) {
   // State 3: Expired or teacher-ended
   if (sessionEnded) {
     return (
-      <main className="min-h-screen bg-gray-50">
-        <header className="bg-white shadow-sm">
+      <main className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50/30">
+        <header className="bg-white/80 backdrop-blur-sm border-b border-gray-100">
           <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
             <Link
               href="/dashboard"
@@ -304,7 +304,7 @@ export default function CheckInPageClient({ course }: CheckInPageClientProps) {
         </header>
 
         <div className="max-w-6xl mx-auto px-4 py-8">
-          <div className="bg-white rounded-lg shadow-md p-8 text-center">
+          <div className="bg-white rounded-xl p-8 text-center">
             <p className="text-lg text-gray-500 mb-4">签到已结束</p>
             <Link
               href="/dashboard"
@@ -319,8 +319,8 @@ export default function CheckInPageClient({ course }: CheckInPageClientProps) {
   }
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm">
+    <main className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50/30">
+      <header className="bg-white/80 backdrop-blur-sm border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
           <Link
             href="/dashboard"
@@ -361,14 +361,14 @@ export default function CheckInPageClient({ course }: CheckInPageClientProps) {
 
         {/* Error banner */}
         {error && (
-          <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-md text-sm">
+          <div className="mb-4 p-4 bg-red-50 border border-red-100 text-red-600 rounded-xl text-sm">
             {error}
           </div>
         )}
 
         {/* State 1: Pre-session */}
         {!session && (
-          <div className="bg-white rounded-lg shadow-md p-8 text-center">
+          <div className="bg-white rounded-xl p-8 text-center">
             <h2 className="text-lg font-semibold text-gray-900 mb-2">
               {course.name}
             </h2>
@@ -400,7 +400,7 @@ export default function CheckInPageClient({ course }: CheckInPageClientProps) {
 
         {/* State 2: Active session */}
         {session && !sessionEnded && (
-          <div className="bg-white rounded-lg shadow-md p-6">
+          <div className="bg-white rounded-xl p-6">
             <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
               {/* QR Code */}
               <div className="flex-shrink-0 bg-white p-4 border border-gray-200 rounded-lg">
