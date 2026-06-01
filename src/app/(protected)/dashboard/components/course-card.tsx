@@ -65,22 +65,28 @@ export default function CourseCard({ course, onDelete, onManageStudents }: Cours
         <p className="text-xs text-red-500">{checkinError}</p>
       )}
 
-      <div className="flex gap-2 mt-2">
+      <div className="flex flex-wrap gap-2 mt-2">
+        <button
+          onClick={() => router.push(`/dashboard/courses/${course.id}/attendance`)}
+          className="flex-1 min-w-[80px] border border-green-400 text-green-600 py-2 rounded-md hover:bg-green-50 text-sm font-medium"
+        >
+          考勤总览
+        </button>
         <button
           onClick={() => router.push(`/dashboard/courses/${course.id}/history`)}
-          className="flex-1 border border-gray-400 text-gray-600 py-2 rounded-md hover:bg-gray-50 text-sm font-medium"
+          className="flex-1 min-w-[80px] border border-gray-400 text-gray-600 py-2 rounded-md hover:bg-gray-50 text-sm font-medium"
         >
           历史记录
         </button>
         <button
           onClick={() => onManageStudents(course)}
-          className="flex-1 border border-blue-500 text-blue-500 py-2 rounded-md hover:bg-blue-50 text-sm font-medium"
+          className="flex-1 min-w-[80px] border border-blue-500 text-blue-500 py-2 rounded-md hover:bg-blue-50 text-sm font-medium"
         >
           管理学生
         </button>
         <button
           onClick={handleDelete}
-          className="px-3 text-red-500 py-2 rounded-md hover:text-red-700 text-sm font-medium"
+          className="text-red-500 py-2 rounded-md hover:text-red-700 text-sm font-medium px-2"
         >
           删除
         </button>
