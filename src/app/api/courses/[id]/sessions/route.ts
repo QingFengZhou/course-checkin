@@ -3,7 +3,7 @@ import { db } from "@/db";
 import { checkInSessions, attendanceRecords } from "@/db/schema/checkin";
 import { courses } from "@/db/schema/courses";
 import { students } from "@/db/schema/students";
-import { eq, and, desc, count, sql } from "drizzle-orm";
+import { eq, and, desc, count } from "drizzle-orm";
 import { getAuthSession } from "@/lib/auth";
 
 export async function GET(
@@ -44,7 +44,7 @@ export async function GET(
       .from(checkInSessions)
       .where(eq(checkInSessions.courseId, courseId));
 
-    // Get sessions with attendance counts
+    // Get sessions with attendance counts (using LEFT JOIN for reliability)
     const sessions = await db
       .select({
         id: checkInSessions.id,
@@ -53,13 +53,15 @@ export async function GET(
         expiresAt: checkInSessions.expiresAt,
         createdAt: checkInSessions.createdAt,
         closedAt: checkInSessions.closedAt,
-        checkedInCount: sql<number>`
-          (SELECT count(*) FROM ${attendanceRecords}
-           WHERE ${attendanceRecords.sessionId} = ${checkInSessions.id})
-        `,
+        checkedInCount: count(attendanceRecords.id),
       })
       .from(checkInSessions)
+      .leftJoin(
+        attendanceRecords,
+        eq(attendanceRecords.sessionId, checkInSessions.id),
+      )
       .where(eq(checkInSessions.courseId, courseId))
+      .groupBy(checkInSessions.id)
       .orderBy(desc(checkInSessions.createdAt))
       .limit(limit)
       .offset(offset);
