@@ -1,9 +1,8 @@
 {
   "framework": "nextjs",
-  "buildCommand": "npx next build",
+  "buildCommand": "next build",
   "outputDirectory": ".next",
-  "installCommand": "npm install",
-  "nodeVersion": "22.x"
+  "installCommand": "npm install"
 }
 
 
